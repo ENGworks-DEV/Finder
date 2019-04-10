@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 using EngFinder.Core;
 using EngFinder.Model;
 using System;
@@ -31,6 +32,9 @@ namespace EngFinder.View
         public ObservableCollection<Category> CategoryList { get; set; }
         List<Category> _Category { get; set; }
         public ObservableCollection<CheckedListItem> CategoryObjects { get; set; }
+        public ObservableCollection<Element> ElementList { get; set; }
+
+      
         public FrmMain(Document IntDocument)
         {
             InitializeComponent();
@@ -143,7 +147,24 @@ namespace EngFinder.View
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
             LibElement vLibElement = new LibElement(_Doc);
-            vLibElement.GetBy((RevitParameter)ListParameter.SelectedItem, CategoriesList(), txtFilter.Text);
+            IList<Element> vList = vLibElement.GetBy((RevitParameter)ListParameter.SelectedItem, CategoriesList(), txtFilter.Text);
+            ElementList = new ObservableCollection<Element>(vList);
+            ElementListView.ItemsSource = ElementList;
+
+          
+        }
+
+        private void ElementListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            foreach (Element vData in ElementListView.SelectedItems)
+            {
+                ICollection<ElementId> ids = new List<ElementId>();
+                ids.Add(vData.Id);
+                UIDocument uiDoc = new UIDocument(_Doc);
+                uiDoc.Selection.SetElementIds(ids);
+                uiDoc.ShowElements(ids);
+            }
+
         }
     }
 

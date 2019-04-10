@@ -72,16 +72,6 @@ namespace EngFinder.Core
         public bool Contains(string valValueToString, RevitParameter valRevitParameter, Element valElement)
         {
             bool vResult = false;
-            Parameter vParameter = valElement.get_Parameter((BuiltInParameter)valRevitParameter.ElementId.IntegerValue);
-            if (vParameter != null)
-            {
-                if (vParameter.HasValue)
-                {
-                    var Info = vParameter.AsValueString();
-                }
-               
-                
-            }
             List<RevitParameterInfocs> vList = GetParametersBy(valElement);
             if (vList != null)
             {

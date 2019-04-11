@@ -75,7 +75,15 @@ namespace EngFinder.Core
             List<RevitParameterInfocs> vList = GetParametersBy(valElement);
             if (vList != null)
             {
-                vResult = (vList.Where(p => p.ID == valRevitParameter.Id.ToString() && p.Value == valValueToString).Count() > 0);
+                if (string.IsNullOrEmpty(valValueToString))
+                {
+                    vResult = (vList.Where(p => p.ID == valRevitParameter.Id.ToString()).Count() > 0);
+                }
+                else
+                {
+                    vResult = (vList.Where(p => p.ID == valRevitParameter.Id.ToString() && p.Value == valValueToString).Count() > 0);
+
+                }
             }
             return vResult;
         }

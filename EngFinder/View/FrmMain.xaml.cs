@@ -106,11 +106,19 @@ namespace EngFinder.View
 
         private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            
-            ObservableCollection<RevitParameter> vRevitParameters = new ObservableCollection<RevitParameter>(_RevitParameter.Where(p => p.Name.Contains(TxtSearch.Text)));
-            ListParameterRefresh(vRevitParameters);
+
+            try
+            {
+                ObservableCollection<RevitParameter> vRevitParameters = new ObservableCollection<RevitParameter>(_RevitParameter.Where(p => p.Name.Contains(TxtSearch.Text)));
+                ListParameterRefresh(vRevitParameters);
+            }
+            catch (Exception vEx)
+            {
+                TextBlockError.Text = vEx.Message;
+            }
+
         }
-         
+
         private void ListParameterRefresh(ObservableCollection<RevitParameter> valRevitParameter)
         {
             RevitParameters.Clear();
@@ -125,7 +133,7 @@ namespace EngFinder.View
         public void CategoryCreateCheckBoxList()
         {
             CategoryObjects = new ObservableCollection<CheckedListItem>();
-           foreach ( var vData in _Category)
+            foreach (var vData in _Category)
             {
                 CheckedListItem vRecord = new CheckedListItem();
                 vRecord.Id = vData.Id.ToString();
@@ -138,33 +146,77 @@ namespace EngFinder.View
 
         private void CheckBox_Click(object sender, RoutedEventArgs e)
         {
-            foreach( var vData in CategoryObjects)
+            try
             {
-                LoadInfo(false);
+                foreach (var vData in CategoryObjects)
+                {
+                    LoadInfo(false);
+                }
+
+            }
+            catch (Exception vEx)
+            {
+                TextBlockError.Text = vEx.Message;
             }
         }
 
+
+
+
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
-            LibElement vLibElement = new LibElement(_Doc);
-            IList<Element> vList = vLibElement.GetBy((RevitParameter)ListParameter.SelectedItem, CategoriesList(), txtFilter.Text);
-            ElementList = new ObservableCollection<Element>(vList);
-            ElementListView.ItemsSource = ElementList;
+            try
+            {
+                FilterParameter(txtFilter.Text);
+            }
+            catch (Exception vEx)
+            {
+                TextBlockError.Text = vEx.Message;
+            }
 
           
         }
 
         private void ElementListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            foreach (Element vData in ElementListView.SelectedItems)
+            try
             {
-                ICollection<ElementId> ids = new List<ElementId>();
-                ids.Add(vData.Id);
-                UIDocument uiDoc = new UIDocument(_Doc);
-                uiDoc.Selection.SetElementIds(ids);
-                uiDoc.ShowElements(ids);
+
+                foreach (Element vData in ElementListView.SelectedItems)
+                {
+                    ICollection<ElementId> ids = new List<ElementId>();
+                    ids.Add(vData.Id);
+                    UIDocument uiDoc = new UIDocument(_Doc);
+                    uiDoc.Selection.SetElementIds(ids);
+                    uiDoc.ShowElements(ids);
+                }
+            }
+            catch (Exception vEx)
+            {
+                TextBlockError.Text = vEx.Message;
+            }
+        }
+
+        private void ListParameter_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                FilterParameter("");
+
+            }
+            catch (Exception vEx)
+            {
+                TextBlockError.Text = vEx.Message;
             }
 
+        }
+
+        void FilterParameter(string valFilter)
+        {
+            LibElement vLibElement = new LibElement(_Doc);
+            IList<Element> vList = vLibElement.GetBy((RevitParameter)ListParameter.SelectedItem, CategoriesList(), valFilter);
+            ElementList = new ObservableCollection<Element>(vList);
+            ElementListView.ItemsSource = ElementList;
         }
     }
 

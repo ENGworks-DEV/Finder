@@ -52,7 +52,7 @@ namespace EngFinder
                 tx.Commit();
             }
             FrmMain vInsFrmMain = new FrmMain(doc);
-            vInsFrmMain.Width = 400;
+       
             vInsFrmMain.Show();
             return Result.Succeeded;
         }

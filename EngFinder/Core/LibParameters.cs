@@ -34,11 +34,11 @@ namespace EngFinder.Core
                     string vName = string.Empty;
                     if (vElementId.IntegerValue < 0)
                     {
-                        vName = LabelUtils.GetLabelFor((BuiltInParameter)vElementId.IntegerValue);
+                        vName = LabelUtils.GetLabelFor((BuiltInParameter)vElementId.IntegerValue)+"-"+vElementId.ToString();
                     }
                     else
                     {
-                        vName = _Doc.GetElement(vElementId).Name;
+                        vName = _Doc.GetElement(vElementId).Name + "-" + vElementId.ToString(); ;
                     }
                    
                     vRecord.Id = vElementId.IntegerValue;

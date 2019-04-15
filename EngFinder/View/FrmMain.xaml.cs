@@ -86,10 +86,20 @@ namespace EngFinder.View
         {
             List<ElementId> vResult = new List<ElementId>();
             List<BuiltInCategory> vBuiltInCats = new List<BuiltInCategory>();
+
             vBuiltInCats.Add(BuiltInCategory.OST_ConduitRun);
             vBuiltInCats.Add(BuiltInCategory.OST_Conduit);
             vBuiltInCats.Add(BuiltInCategory.OST_DataDevices);
             vBuiltInCats.Add(BuiltInCategory.OST_ConduitFitting);
+            vBuiltInCats.Add(BuiltInCategory.OST_CableTray);
+            vBuiltInCats.Add(BuiltInCategory.OST_CableTrayFitting);
+            vBuiltInCats.Add(BuiltInCategory.OST_DuctAccessory);
+            vBuiltInCats.Add(BuiltInCategory.OST_DuctFitting);
+            vBuiltInCats.Add(BuiltInCategory.OST_DuctCurves);
+            vBuiltInCats.Add(BuiltInCategory.OST_PipeCurves);
+            vBuiltInCats.Add(BuiltInCategory.OST_PipeFitting);
+            vBuiltInCats.Add(BuiltInCategory.OST_PipeAccessory);
+
             _Category = new List<Category>();
             foreach (var vData in vBuiltInCats)
             {

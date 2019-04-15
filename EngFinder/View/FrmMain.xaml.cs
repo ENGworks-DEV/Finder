@@ -86,9 +86,8 @@ namespace EngFinder.View
         {
             List<ElementId> vResult = new List<ElementId>();
             List<BuiltInCategory> vBuiltInCats = new List<BuiltInCategory>();
-            vBuiltInCats.Add(BuiltInCategory.OST_Doors);
-            vBuiltInCats.Add(BuiltInCategory.OST_Rooms);
-            vBuiltInCats.Add(BuiltInCategory.OST_Windows);
+            vBuiltInCats.Add(BuiltInCategory.OST_ConduitRun);
+            vBuiltInCats.Add(BuiltInCategory.OST_Conduit);
             vBuiltInCats.Add(BuiltInCategory.OST_DataDevices);
             vBuiltInCats.Add(BuiltInCategory.OST_ConduitFitting);
             _Category = new List<Category>();
@@ -122,7 +121,7 @@ namespace EngFinder.View
         private void ListParameterRefresh(ObservableCollection<RevitParameter> valRevitParameter)
         {
             RevitParameters.Clear();
-            foreach (var vData in valRevitParameter)
+            foreach (var vData in valRevitParameter.OrderBy(x => x.Name))
             {
                 RevitParameters.Add(vData);
             }
@@ -189,6 +188,7 @@ namespace EngFinder.View
                     UIDocument uiDoc = new UIDocument(_Doc);
                     uiDoc.Selection.SetElementIds(ids);
                     uiDoc.ShowElements(ids);
+                    break;
                 }
             }
             catch (Exception vEx)
@@ -217,6 +217,30 @@ namespace EngFinder.View
             IList<Element> vList = vLibElement.GetBy((RevitParameter)ListParameter.SelectedItem, CategoriesList(), valFilter);
             ElementList = new ObservableCollection<Element>(vList);
             ElementListView.ItemsSource = ElementList;
+        }
+
+        private void IsolateElements_click(object sender, RoutedEventArgs e)
+        {
+
+                if (ElementListView.Items.Count > 0)
+                {
+                    try
+                    {
+
+                        List<ElementId> vIds = new List<ElementId>();
+                        foreach (Element vData in ElementListView.Items)
+                        {
+                            vIds.Add(vData.Id);
+                        }
+
+                        _Doc.ActiveView.IsolateElementsTemporary(vIds);
+                    }
+                    catch (Exception vEx)
+                    {
+                        TextBlockError.Text = vEx.Message;
+                    } 
+                }
+
         }
     }
 

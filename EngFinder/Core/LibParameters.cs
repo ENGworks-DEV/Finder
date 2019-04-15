@@ -28,24 +28,31 @@ namespace EngFinder.Core
                 List<ElementId> vFilter = new List<ElementId>();
                 vFilter.Add(vData);
                 var vList = ParameterFilterUtilities.GetFilterableParametersInCommon(_Doc, vFilter);
-                Category vCategory = _Doc.Settings.Categories.get_Item((BuiltInCategory)vData.IntegerValue);
+                //Category vCategory = _Doc.Settings.Categories.get_Item((BuiltInCategory)vData.IntegerValue);
                 foreach (ElementId vElementId in vList.AsParallel())
                 {
                     RevitParameter vRecord = new RevitParameter();
                     string vName = string.Empty;
-                    if (vElementId.IntegerValue < 0)
+                    if (vResult.Where(p => p.Id == vElementId.IntegerValue).Count() == 0)
                     {
-                        vName = LabelUtils.GetLabelFor((BuiltInParameter)vElementId.IntegerValue)+ "-" + vCategory.Name+"-" +vElementId.ToString();
+
+                        if (vElementId.IntegerValue < 0)
+                        {
+                            vName = LabelUtils.GetLabelFor((BuiltInParameter)vElementId.IntegerValue) + " - " + vElementId.ToString();
+                        }
+                        else
+                        {
+                            vName = _Doc.GetElement(vElementId).Name + " - " + vElementId.ToString();
+                        }
+
+                        vRecord.Id = vElementId.IntegerValue;
+                        vRecord.ElementId = vElementId;
+                        vRecord.Name = vName;
+                        vResult.Add(vRecord);
                     }
-                    else
-                    {
-                        vName = _Doc.GetElement(vElementId).Name + "-"+ vCategory.Name + "-" + vElementId.ToString();  
-                    }
+
+
                    
-                    vRecord.Id = vElementId.IntegerValue;
-                    vRecord.ElementId = vElementId;
-                    vRecord.Name = vName;
-                    vResult.Add(vRecord);
                 }
             }
             return vResult;

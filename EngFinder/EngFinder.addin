@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
   <AddIn Type="Command">
-    <Text>Command EngFinder</Text>
+    <Text>ENGFinder</Text>
     <Description>Some description for EngFinder</Description>
     <Assembly>EngFinder.dll</Assembly>
     <FullClassName>EngFinder.Command</FullClassName>
@@ -10,7 +10,7 @@
     <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
   </AddIn>
   <AddIn Type="Application">
-    <Name>Application EngFinder</Name>
+    <Name>ENGFinder</Name>
     <Assembly>EngFinder.dll</Assembly>
     <FullClassName>EngFinder.App</FullClassName>
     <ClientId>3c13b613-6ec9-4c78-9ff3-cecfb9e54f1b</ClientId>

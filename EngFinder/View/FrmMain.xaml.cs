@@ -118,7 +118,7 @@ namespace EngFinder.View
 
             try
             {
-                ObservableCollection<RevitParameter> vRevitParameters = new ObservableCollection<RevitParameter>(_RevitParameter.Where(p => String.Equals( p.Name, TxtSearch.Text, StringComparison.OrdinalIgnoreCase)));
+                ObservableCollection<RevitParameter> vRevitParameters = new ObservableCollection<RevitParameter>(_RevitParameter.Where(p => p.Name.Contains(TxtSearch.Text)));
                 ListParameterRefresh(vRevitParameters);
             }
             catch (Exception vEx)

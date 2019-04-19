@@ -38,11 +38,11 @@ namespace EngFinder.Core
 
                         if (vElementId.IntegerValue < 0)
                         {
-                            vName = LabelUtils.GetLabelFor((BuiltInParameter)vElementId.IntegerValue) + " - " + vElementId.ToString();
+                            vName = LabelUtils.GetLabelFor((BuiltInParameter)vElementId.IntegerValue) + "  " + vElementId.ToString();
                         }
                         else
                         {
-                            vName = _Doc.GetElement(vElementId).Name + " - " + vElementId.ToString();
+                            vName = _Doc.GetElement(vElementId).Name + "  " + vElementId.ToString();
                         }
 
                         vRecord.Id = vElementId.IntegerValue;

@@ -61,7 +61,7 @@ namespace EngFinder.View
             _RevitParameter = inSLibParameters.GetFilterByCategory(vCatList);
             if (valFromWindowLoaded)
             {
-                RevitParameters = new ObservableCollection<RevitParameter>(_RevitParameter);
+                RevitParameters = new ObservableCollection<RevitParameter>(_RevitParameter.OrderBy(x => x.Name));
             }
             else
             {
@@ -100,6 +100,8 @@ namespace EngFinder.View
             vBuiltInCats.Add(BuiltInCategory.OST_PipeFitting);
             vBuiltInCats.Add(BuiltInCategory.OST_PipeAccessory);
 
+
+
             _Category = new List<Category>();
             foreach (var vData in vBuiltInCats)
             {
@@ -111,6 +113,7 @@ namespace EngFinder.View
                     _Category.Add(vRecord);
                 }
             }
+            
         }
 
         private void TxtSearch_TextChanged(object sender, TextChangedEventArgs e)
@@ -118,7 +121,10 @@ namespace EngFinder.View
 
             try
             {
-                ObservableCollection<RevitParameter> vRevitParameters = new ObservableCollection<RevitParameter>(_RevitParameter.Where(p => p.Name.ToLower().Contains( TxtSearch.Text.ToLower())));
+                ObservableCollection<RevitParameter> vRevitParameters = new ObservableCollection<RevitParameter>(_RevitParameter
+                    .Where(p => p.Name.ToLower()
+                    .Contains( TxtSearch.Text.ToLower())));
+
                 ListParameterRefresh(vRevitParameters);
             }
             catch (Exception vEx)
@@ -135,14 +141,14 @@ namespace EngFinder.View
             {
                 RevitParameters.Add(vData);
             }
-
+            
             ListParameter.Items.Refresh();
         }
 
         public void CategoryCreateCheckBoxList()
         {
             CategoryObjects = new ObservableCollection<CheckedListItem>();
-            foreach (var vData in _Category)
+            foreach (var vData in _Category.OrderBy(x=>x.Name))
             {
                 CheckedListItem vRecord = new CheckedListItem();
                 vRecord.Id = vData.Id.ToString();

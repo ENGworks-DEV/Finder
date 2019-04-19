@@ -13,6 +13,7 @@ namespace EngFinder.Model
         public string Name { get; set; }
 
         public ElementId ElementId { get; set; }
+        public Definition Definition { get; set; }
 
     }
 }

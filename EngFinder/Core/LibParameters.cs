@@ -38,16 +38,17 @@ namespace EngFinder.Core
 
                         if (vElementId.IntegerValue < 0)
                         {
-                            vName = LabelUtils.GetLabelFor((BuiltInParameter)vElementId.IntegerValue) + " - " + vElementId.ToString();
+                            vName = LabelUtils.GetLabelFor((BuiltInParameter)vElementId.IntegerValue) + "  " + vElementId.ToString();
                         }
                         else
                         {
-                            vName = _Doc.GetElement(vElementId).Name + " - " + vElementId.ToString();
+                            vName = _Doc.GetElement(vElementId).Name + "  " + vElementId.ToString();
                         }
 
                         vRecord.Id = vElementId.IntegerValue;
                         vRecord.ElementId = vElementId;
                         vRecord.Name = vName;
+                        
                         vResult.Add(vRecord);
                     }
 
@@ -65,7 +66,7 @@ namespace EngFinder.Core
                  select new RevitParameterInfocs
                  {
                      Name = p.Definition.Name,
-                     Value = p.AsValueString(),
+                     Value = p.AsString()?? p.AsValueString(),
                      Group = p.Definition.ParameterGroup,
                      Type = p.Definition.ParameterType,
                      Storage = p.StorageType,

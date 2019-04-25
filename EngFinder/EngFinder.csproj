@@ -61,6 +61,7 @@
     <Compile Include="App.cs" />
     <Compile Include="Command.cs" />
     <Compile Include="Core\LibElement.cs" />
+    <Compile Include="Core\LibNumeric.cs" />
     <Compile Include="Core\LibParameters.cs" />
     <Compile Include="Model\RevitParameter.cs" />
     <Compile Include="Model\RevitParameterInfocs.cs" />

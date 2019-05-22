@@ -258,6 +258,11 @@ namespace EngFinder.View
                 }
 
         }
+
+        private void lbActors_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
     }
 
     public class CheckedListItem

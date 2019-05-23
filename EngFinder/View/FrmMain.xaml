@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EngFinder.View"
              mc:Ignorable="d" 
-             Title="Finder" Loaded="Window_Loaded" Width="100" MaxHeight="550" MaxWidth="100"  MinHeight="550" MinWidth="300" Height="540.179" WindowStartupLocation="CenterScreen"
-
+             Title="Finder" Loaded="Window_Loaded" Width="342" MaxHeight="650" MaxWidth="100"  MinHeight="550" MinWidth="300" Height="609.5" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" 
          
         Style="{DynamicResource CustomWindowStyle}"
@@ -20,6 +19,17 @@
 
     </Window.CommandBindings>-->
 
+    <Window.Resources>
+
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="UserControl.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+
+    </Window.Resources>
+
     <Grid Margin="10,0,10,10" Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="11*"/>
@@ -28,36 +38,53 @@
         <Grid.Effect>
             <DropShadowEffect BlurRadius="20" Color="Gray" Opacity="0.3" ShadowDepth="0" Direction="0"></DropShadowEffect>
         </Grid.Effect>
-        <!--<Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="228.8" />
-                <ColumnDefinition Width="270.4" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="500" />
-                <RowDefinition Height="200" />
-            </Grid.RowDefinitions>-->
 
 
-        <!--<Label Style="{DynamicResource Labels}" Name="lblCategory" Content="Category" Grid.Row="0" Margin="10,6,190,481" />-->
-
-        <ListBox Name="lbActors" ItemsSource="{Binding CategoryObjects}" Margin="11,-176,0,145" SelectionChanged="lbActors_SelectionChanged" HorizontalAlignment="Left" Width="259" >
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Focusable" Value="False"/>
-                </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate>
+        <!--1 Select Categories-->
+        <ComboBox Text="1. Select Category Name" ItemContainerStyle="{DynamicResource ComboItemStyle}" TextSearch.TextPath ="Industry"  Name="industry" SelectionChanged="LbActors_SelectionChanged" IsEditable="True" IsReadOnly="True" Margin="11,20,10,14" FontFamily="Roboto" FontSize="14px" VerticalAlignment="Center" Foreground="LightGray" Height="27" Padding="10 4 0 0" >
+            <ComboBox.ItemsSource>
+                <CompositeCollection>
+                    <ComboBoxItem>
+                        <!--<CheckBox x:Name="allIndustry">All</CheckBox>-->
+                    </ComboBoxItem>
+                    <CollectionContainer Collection="{Binding Source={StaticResource FilterOptionsBridge}}" />
+                </CompositeCollection>
+            </ComboBox.ItemsSource>
+            <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}" Click="CheckBox_Click"/>
+                    <StackPanel Orientation="Horizontal">
+                        <CheckBox Name="chkTask" Content="{Binding Name}" IsChecked="{Binding IsChecked}" Click="CheckBox_Click" TextBlock.FontSize="12" TextBlock.FontFamily="Segoe UI" Margin="11,2,0,0">
+                            <!--<TextBlock Text="{Binding Name}" Margin="0,0,0,0" FontSize="14" FontWeight="Bold"></TextBlock>-->
+                        </CheckBox>
+                    </StackPanel>
                 </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-        <TextBox Style="{DynamicResource MainTextBox}" Tag="Parameter Name" Name="TxtSearch" TextChanged="TxtSearch_TextChanged" Margin="11,0,0,428" HorizontalAlignment="Left" Width="259" Grid.Row="1"/>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
 
 
-        <ListBox  Name="ListParameter" ItemsSource="{Binding RevitParameters}" DisplayMemberPath="Name" HorizontalAlignment="Left" Width="259" Margin="11,27,0,325" BorderThickness="0.8 0 0.8 0.8" BorderBrush="Gray" ItemContainerStyle="{DynamicResource SimpleListBoxItem}" Grid.Row="1" />
-        <TextBox Style="{DynamicResource MainTextBoxSearch}" Tag="Parameter Value" Name="txtFilter" Margin="11,144,10,282" TextWrapping="Wrap" Text="" Grid.Row="1" />
+
+        <!--2 Select Parameter Name-->
+        <TextBox Style="{DynamicResource MainTextBox}" Tag="2. Select Parameter Name" Name="TxtSearch" TextChanged="TxtSearch_TextChanged" Margin="11,0,0,0" HorizontalAlignment="Left" Width="259" Grid.Row="1" Height="27" VerticalAlignment="Top"/>
+        <ListBox  Name="ListParameter" ItemsSource="{Binding RevitParameters}" DisplayMemberPath="Name" HorizontalAlignment="Left" Width="259" Margin="11,27,0,0" BorderThickness="0.8 0 0.8 0.8" BorderBrush="Gray" ItemContainerStyle="{DynamicResource SimpleListBoxItem}" Grid.Row="1" Height="97" VerticalAlignment="Top" />
+
+
+        <!--3 Select Parameter Value-->
+        <TextBox Style="{DynamicResource MainTextBoxSearch}" Tag="3. Select Parameter Value" Name="txtFilter" Margin="11,144,10,0" TextWrapping="Wrap" Text="" Grid.Row="1" Height="29" VerticalAlignment="Top" />
+
+        <Button Background="Transparent" BorderBrush="Transparent" Name="FilterButton"  Click="FilterButton_Click" Margin="242,144,10,336" RenderTransformOrigin="-2.737,-1.017" Grid.Row="1" >
+            <ContentControl>
+                <Image Width="18" Height="21" Source="Search.png" Cursor="Hand" RenderTransformOrigin="0.5,0.571" />
+            </ContentControl>
+        </Button>
+
+        <ListView Name="ElementListView" SelectionChanged="ElementListView_SelectionChanged" Margin="11,173,10,0" BorderThickness="0.8 0 0.8 0.8" BorderBrush="Gray" ItemContainerStyle="{DynamicResource SimpleListviewItem}" Grid.Row="1" Height="286" VerticalAlignment="Top">
+            <ListView.View>
+                <GridView ColumnHeaderContainerStyle="{DynamicResource myHeaderStyle}">
+                    <GridViewColumn  DisplayMemberBinding="{Binding Path=Name}">
+                    </GridViewColumn >
+                </GridView>
+            </ListView.View>
+        </ListView>
 
         <TextBlock x:Name="Placeholder" IsHitTestVisible="False" TextWrapping="Wrap" Text="Placeholder Text" VerticalAlignment="Top" Margin="-233,20,299,0" Foreground="DarkGray" HorizontalAlignment="Right" Width="214">
             <TextBlock.Style>
@@ -72,77 +99,29 @@
             </TextBlock.Style>
         </TextBlock>
 
-        <Button Background="Transparent" BorderBrush="Transparent" Name="FilterButton"  Click="FilterButton_Click" Margin="242,144,10,286" RenderTransformOrigin="-2.737,-1.017" Grid.Row="1" >
-            <ContentControl>
-                <Image Width="18" Height="21" Source="Search.png" Cursor="Hand" RenderTransformOrigin="0.5,0.571" />
-            </ContentControl>
-        </Button>
-
-        <!--<Button Style="{DynamicResource MainButtonStyle}" Content="Search" Name="FilterButton" HorizontalAlignment="Left"   Click="FilterButton_Click" Width="259" Margin="23,561,-2,-84" RenderTransformOrigin="-2.737,-1.017" Height="Auto"   />-->
-
-
-        <!--<Grid Margin="0,0,120,0" Grid.ColumnSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="200" />
-                    <RowDefinition Height="30" />
-                    <RowDefinition Height="160.8" />
-                    <RowDefinition Height="128" />
-                </Grid.RowDefinitions>
-
-
-
-
-
-                <StackPanel Grid.ColumnSpan="2"  Grid.Row="3" Margin="0,20,0.2,127.8" Grid.RowSpan="2"  >
-
-                </StackPanel>
-
-            </Grid>-->
-
-
-
-
-        <ListView Name="ElementListView" SelectionChanged="ElementListView_SelectionChanged" Margin="11,173,10,10" BorderThickness="0.8 0 0.8 0.8" BorderBrush="Gray" ItemContainerStyle="{DynamicResource SimpleListviewItem}" Grid.Row="1">
-
-
-
-            <ListView.View>
-                <GridView ColumnHeaderContainerStyle="{DynamicResource myHeaderStyle}">
-                    <GridViewColumn  DisplayMemberBinding="{Binding Path=Name}">
-                    </GridViewColumn >
-                </GridView>
-            </ListView.View>
-        </ListView>
-
-
         <TextBlock Name="TextBlockError" TextWrapping="Wrap" Text="" Margin="-75,497,257,-105" Grid.Row="1" />
-        <Button Style="{DynamicResource MainButtonStyle}" Content="Isolate" Margin="10,497,11,-68" Click="IsolateElements_click" Height="Auto" Grid.Row="1"/>
 
-        <Button Style="{DynamicResource MainButtonStyle}" Content="Select categories" Margin="11,19,10,10" Click="IsolateElements_click" Height="Auto"/>
+        <!--4 Isolate or select elements-->
+        <Button Style="{DynamicResource MainButtonStyle}" Content="Select all" HorizontalAlignment="Left" Margin="11,471,0,0" Grid.Row="1" VerticalAlignment="Top" Width="115" Height="26"/>
+        <Button Style="{DynamicResource MainButtonStyle}" Content="Isolate all" HorizontalAlignment="Left" Margin="155,471,0,0" Grid.Row="1" VerticalAlignment="Top" Width="115" Height="26"/>
 
 
-        <!--</Grid>-->
+        <!--<Button Style="{DynamicResource MainButtonStyle}" Content="Isolate" Margin="10,497,11,-68" Click="IsolateElements_click" Height="Auto" Grid.Row="1"/>-->
+
+        <!--<ListBox Name="lbActors" ItemsSource="{Binding CategoryObjects}" Margin="11,-200,0,169" SelectionChanged="LbActors_SelectionChanged" HorizontalAlignment="Left" Width="259" >
+            <ListBox.ItemContainerStyle>
+                <Style TargetType="{x:Type ListBoxItem}">
+                    <Setter Property="Focusable" Value="False"/>
+                </Style>
+            </ListBox.ItemContainerStyle>
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}" Click="CheckBox_Click"/>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>-->
+
     </Grid>
-
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="UserControl.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
-
-
-
-
-
-
-
 
 </Window>
 

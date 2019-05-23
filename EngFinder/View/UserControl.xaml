@@ -154,8 +154,6 @@
 
     <!--Customized Templace for the Warning windows-->
     <ControlTemplate x:Key="WarningTemplate" TargetType="{x:Type Window}">
-
-
         <Grid Background="{StaticResource WindowBackColor}">
             <Grid>
                 <Grid.RowDefinitions>
@@ -248,7 +246,6 @@
         <Setter Property="Foreground" Value="Transparent"/>
         <Setter Property="Template" Value="{StaticResource WindowTemplate}"/>
         <Setter Property="ResizeMode" Value="NoResize"/>
-
     </Style>
 
 
@@ -288,7 +285,7 @@
         </ControlTemplate.Triggers>
     </ControlTemplate>
 
-    
+
     <!--Customization of MainButtons template-->
     <Style x:Key="MainButtonStyle" TargetType="{x:Type Button}">
         <Setter Property="Template" Value="{StaticResource MainButtonStyleTemplate}"/>
@@ -306,7 +303,6 @@
             </Setter.Value>
         </Setter>
     </Style>
-
 
 
     <!--MainButtons Custom template-->
@@ -493,10 +489,10 @@
 
                         </Storyboard>
                     </VisualState>
-                    
-                    
-                    
-                    
+
+
+
+
                     <VisualState x:Name="Unfocused">
                         <Storyboard>
                             <DoubleAnimation BeginTime="00:00:00.000" Duration="00:00:00.700"
@@ -681,7 +677,7 @@
                     BorderThickness="0.8 0.8 0.8 0.8"
                     CornerRadius="3">
                 <DockPanel Margin="3">
-                    
+
                     <StackPanel VerticalAlignment="Top" Margin="3 2 0 0" HorizontalAlignment="Left" Orientation="Horizontal">
                         <!--<TextBlock Text="Parameter value" Height="16" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8,0,0,0"/>-->
                         <TextBox Text="{Binding Path=Text,
@@ -709,8 +705,8 @@
                         </TextBox>
                     </StackPanel>
 
-        
-                
+
+
                 </DockPanel>
             </Border>
 
@@ -800,7 +796,7 @@
     <!--ListBoxCustom template-->
     <Style x:Key="SimpleListBoxItem" TargetType="ListBoxItem">
         <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-        
+
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ListBoxItem">
@@ -819,7 +815,7 @@
                             <Setter TargetName="Border" Property="Background"
                      Value="LightGray"/>
                         </Trigger>
-                        
+
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
@@ -845,8 +841,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-
-
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="true">
                 <Setter  Property="Background"
@@ -986,6 +980,27 @@
                             <Setter TargetName="PageUp"
                                 Property="Command"
                                 Value="ScrollBar.PageRightCommand" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <CollectionViewSource x:Key="FilterOptionsBridge" Source="{Binding Path=CategoryObjects}" />
+
+    
+    <Style x:Key="ComboItemStyle" TargetType="{x:Type ComboBoxItem}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                    <Border x:Name="gd" >
+                        <ContentPresenter />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
+                            <Setter TargetName="gd"  Property="Background" Value="LightGray"></Setter>
+                            
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -27,7 +27,7 @@ namespace EngFinder
 
         private void AddInLink(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            System.Diagnostics.Process.Start("https://engworks.com/renumber-parts/");
+            System.Diagnostics.Process.Start("https://engworks.com/values-finder/");
         }
     }
 }

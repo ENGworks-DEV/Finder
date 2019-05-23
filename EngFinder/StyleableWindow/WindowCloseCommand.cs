@@ -20,9 +20,8 @@ namespace WpfStyleableWindow.StyleableWindow
 
         public void Execute(object parameter)
         {
-            var window = parameter as Window;
 
-            if (window != null)
+            if (parameter is Window window)
             {
                 window.Close();
             }

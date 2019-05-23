@@ -85,7 +85,8 @@ namespace EngFinder.View
         void CategoryInitValue()
         {
             List<ElementId> vResult = new List<ElementId>();
-            List<BuiltInCategory> vBuiltInCats = new List<BuiltInCategory>();
+            List<BuiltInCategory> list = new List<BuiltInCategory>();
+            List<BuiltInCategory> vBuiltInCats = list;
 
             vBuiltInCats.Add(BuiltInCategory.OST_ConduitRun);
             vBuiltInCats.Add(BuiltInCategory.OST_Conduit);
@@ -150,10 +151,12 @@ namespace EngFinder.View
             CategoryObjects = new ObservableCollection<CheckedListItem>();
             foreach (var vData in _Category.OrderBy(x=>x.Name))
             {
-                CheckedListItem vRecord = new CheckedListItem();
-                vRecord.Id = vData.Id.ToString();
-                vRecord.Name = vData.Name;
-                vRecord.IsChecked = true;
+                CheckedListItem vRecord = new CheckedListItem
+                {
+                    Id = vData.Id.ToString(),
+                    Name = vData.Name,
+                    IsChecked = true
+                };
                 CategoryObjects.Add(vRecord);
             }
 
@@ -199,7 +202,8 @@ namespace EngFinder.View
 
                 foreach (Element vData in ElementListView.SelectedItems)
                 {
-                    ICollection<ElementId> ids = new List<ElementId>();
+                    List<ElementId> list = new List<ElementId>();
+                    ICollection<ElementId> ids = list;
                     ids.Add(vData.Id);
                     UIDocument uiDoc = new UIDocument(_Doc);
                     uiDoc.Selection.SetElementIds(ids);
@@ -259,10 +263,12 @@ namespace EngFinder.View
 
         }
 
-        private void lbActors_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void LbActors_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
+
+
     }
 
     public class CheckedListItem

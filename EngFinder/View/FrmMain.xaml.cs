@@ -25,7 +25,9 @@ namespace EngFinder.View
     /// </summary>
     public partial class FrmMain : Window
     {
-       
+
+        private ExternalCommandData p_commanddata;
+        
         Document _Doc;
         List<RevitParameter> _RevitParameter;
         public ObservableCollection<RevitParameter> RevitParameters { get; set; }
@@ -35,12 +37,21 @@ namespace EngFinder.View
         public ObservableCollection<Element> ElementList { get; set; }
 
       
-        public FrmMain(Document IntDocument)
+        public FrmMain(Document IntDocument, ExternalCommandData cmddata_p)
         {
+
+            p_commanddata = cmddata_p;
+
             InitializeComponent();
+
+
+            UIApplication uiApp = cmddata_p.Application;
+            UIDocument uiDoc = uiApp.ActiveUIDocument;
+            
             _Doc = IntDocument;
             CategoryInitValue();
-           
+            this.Topmost = true;
+
         }
         private void ListParameter_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)
         {
@@ -183,16 +194,17 @@ namespace EngFinder.View
 
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                FilterParameter(txtFilter.Text);
-            }
-            catch (Exception vEx)
-            {
-                TextBlockError.Text = vEx.Message;
-            }
-
-          
+            if (ListParameter.SelectedItem != null)
+                try
+                {
+                    FilterParameter(txtFilter.Text);
+                }
+                catch (Exception vEx)
+                {
+                    TextBlockError.Text = vEx.Message;
+                }
+            else
+                TaskDialog.Show("Alert", "You have not selected any parameter");
         }
 
         private void ElementListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -241,8 +253,10 @@ namespace EngFinder.View
 
         private void IsolateElements_click(object sender, RoutedEventArgs e)
         {
+            UIApplication uiApp = p_commanddata.Application;
+            UIDocument uiDoc = uiApp.ActiveUIDocument;
 
-                if (ElementListView.Items.Count > 0)
+            if (ElementListView.Items.Count > 0)
                 {
                     try
                     {
@@ -254,6 +268,10 @@ namespace EngFinder.View
                         }
 
                         _Doc.ActiveView.IsolateElementsTemporary(vIds);
+                         uiDoc.RefreshActiveView();
+                        //this.Hide();
+                        //this.Show();
+                        
                     }
                     catch (Exception vEx)
                     {
@@ -263,12 +281,68 @@ namespace EngFinder.View
 
         }
 
+        private void HighlightElements_click(object sender, RoutedEventArgs e)
+        {
+            UIApplication uiApp = p_commanddata.Application;
+            UIDocument uiDoc = uiApp.ActiveUIDocument;
+
+            if (ElementListView.Items.Count > 0)
+            {
+                try
+                {
+                    
+
+                    OverrideGraphicSettings ogs = new OverrideGraphicSettings();
+                    Autodesk.Revit.DB.Color red = new Autodesk.Revit.DB.Color(255, 0, 0);
+                    Element solidFill = new FilteredElementCollector(_Doc).OfClass(typeof(FillPatternElement)).Where(q => q.Name.Contains("Solid")).First();
+
+                    ogs.SetProjectionLineColor(red);
+                    ogs.SetProjectionLineWeight(8);
+                    ogs.SetProjectionFillPatternId(solidFill.Id);
+                    ogs.SetProjectionFillColor(new Autodesk.Revit.DB.Color(0, 255, 0));
+
+                    List<ElementId> vIds = new List<ElementId>();
+                    foreach (Element vData in ElementListView.Items)
+                    {
+                       
+                        using (Transaction t = new Transaction(_Doc, "Highlight element"))
+                        {
+                            try
+                            {
+                                
+                                _Doc.ActiveView.SetElementOverrides(vData.Id, ogs);
+                                
+                            }
+                            catch (Exception ex)
+                            {
+                                TaskDialog.Show("Exception", ex.ToString());
+                            }
+
+                            uiDoc.RefreshActiveView();
+                            t.Commit();
+                            
+                        }
+                    }
+
+                }
+                catch (Exception vEx)
+                {
+                    TextBlockError.Text = vEx.Message;
+                }
+            }
+
+        }
+
+
         private void LbActors_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
 
         }
 
+        private void ListParameter_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
 
+        }
     }
 
     public class CheckedListItem

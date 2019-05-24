@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EngFinder.View"
              mc:Ignorable="d" 
-             Title="Finder" Loaded="Window_Loaded" Width="342" MaxHeight="650" MaxWidth="100"  MinHeight="550" MinWidth="300" Height="609.5" WindowStartupLocation="CenterScreen"
+             Title="FINDER" Loaded="Window_Loaded" Width="300" MaxHeight="650" MaxWidth="100"  MinHeight="550" MinWidth="300" Height="609.5" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" 
          
         Style="{DynamicResource CustomWindowStyle}"
@@ -30,7 +30,7 @@
 
     </Window.Resources>
 
-    <Grid Margin="10,0,10,10" Background="White">
+    <Grid Margin="0,0,10,0" Background="White" Height="570" VerticalAlignment="Top" HorizontalAlignment="Right" Width="280">
         <Grid.RowDefinitions>
             <RowDefinition Height="11*"/>
             <RowDefinition Height="91*"/>
@@ -61,11 +61,9 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-
-
         <!--2 Select Parameter Name-->
         <TextBox Style="{DynamicResource MainTextBox}" Tag="2. Select Parameter Name" Name="TxtSearch" TextChanged="TxtSearch_TextChanged" Margin="11,0,0,0" HorizontalAlignment="Left" Width="259" Grid.Row="1" Height="27" VerticalAlignment="Top"/>
-        <ListBox  Name="ListParameter" ItemsSource="{Binding RevitParameters}" DisplayMemberPath="Name" HorizontalAlignment="Left" Width="259" Margin="11,27,0,0" BorderThickness="0.8 0 0.8 0.8" BorderBrush="Gray" ItemContainerStyle="{DynamicResource SimpleListBoxItem}" Grid.Row="1" Height="97" VerticalAlignment="Top" />
+        <ListBox  Name="ListParameter"  ItemsSource="{Binding RevitParameters}"  DisplayMemberPath="Name" HorizontalAlignment="Left" Width="259" Margin="11,27,0,0" Grid.Row="1" Height="97" VerticalAlignment="Top" SelectionChanged="ListParameter_SelectionChanged_1"/>
 
 
         <!--3 Select Parameter Value-->
@@ -77,11 +75,16 @@
             </ContentControl>
         </Button>
 
-        <ListView Name="ElementListView" SelectionChanged="ElementListView_SelectionChanged" Margin="11,173,10,0" BorderThickness="0.8 0 0.8 0.8" BorderBrush="Gray" ItemContainerStyle="{DynamicResource SimpleListviewItem}" Grid.Row="1" Height="286" VerticalAlignment="Top">
+        <ListView Name="ElementListView" SelectionChanged="ElementListView_SelectionChanged" Margin="11,173,10,0" Grid.Row="1" Height="286" VerticalAlignment="Top">
             <ListView.View>
-                <GridView ColumnHeaderContainerStyle="{DynamicResource myHeaderStyle}">
-                    <GridViewColumn  DisplayMemberBinding="{Binding Path=Name}">
-                    </GridViewColumn >
+                <GridView>
+                    <GridViewColumn>
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock x:Name="Txt" Text="{Binding Path=Name}" Foreground="Black" />
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -102,8 +105,8 @@
         <TextBlock Name="TextBlockError" TextWrapping="Wrap" Text="" Margin="-75,497,257,-105" Grid.Row="1" />
 
         <!--4 Isolate or select elements-->
-        <Button Style="{DynamicResource MainButtonStyle}" Content="Select all" HorizontalAlignment="Left" Margin="11,471,0,0" Grid.Row="1" VerticalAlignment="Top" Width="115" Height="26"/>
-        <Button Style="{DynamicResource MainButtonStyle}" Content="Isolate all" HorizontalAlignment="Left" Margin="155,471,0,0" Grid.Row="1" VerticalAlignment="Top" Width="115" Height="26"/>
+        <Button Style="{DynamicResource MainButtonStyle}" Content="SELECT ALL" HorizontalAlignment="Left" Margin="11,471,0,0" Grid.Row="1" VerticalAlignment="Top" Width="115" Height="26"   Click="HighlightElements_click"/>
+        <Button Style="{DynamicResource MainButtonStyle}" Content="ISOLATE ALL" HorizontalAlignment="Left" Margin="155,471,0,0" Grid.Row="1" VerticalAlignment="Top" Width="115" Height="26" Click="IsolateElements_click"/>
 
 
         <!--<Button Style="{DynamicResource MainButtonStyle}" Content="Isolate" Margin="10,497,11,-68" Click="IsolateElements_click" Height="Auto" Grid.Row="1"/>-->

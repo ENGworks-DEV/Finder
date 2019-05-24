@@ -20,6 +20,7 @@ namespace EngFinder
           ref string message,
           ElementSet elements)
         {
+            
             UIApplication uiapp = commandData.Application;
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Application app = uiapp.Application;
@@ -31,7 +32,7 @@ namespace EngFinder
 
             // Retrieve elements from database
 
-            FrmMain vInsFrmMain = new FrmMain(doc);
+            FrmMain vInsFrmMain = new FrmMain(doc, commandData);
        
             vInsFrmMain.Show();
             return Result.Succeeded;

@@ -21,13 +21,11 @@ namespace EngFinder.Core
             var ee = (BuiltInParameter)valRevitParameter.ElementId.IntegerValue;
             var param = _Doc.GetElement(ee.ToString());
             var it = _Doc.ParameterBindings.ForwardIterator();
-            List<string> names = new List<string>();
-            while (it.MoveNext())
+            double vData = 0;
+            if (IsParsed(valValue,out vData))
             {
-                names.Add(it.Key.Name);
+                valValue = vData.ToString();
             }
-            var parameter = _Doc.GetElement(valRevitParameter.ElementId);
-
             LibNumeric insLibNumeric = new LibNumeric();
             if (insLibNumeric.IsDouble(valValue))
             {
@@ -120,6 +118,13 @@ namespace EngFinder.Core
                 }
 
             }
+            return vResult;
+        }
+
+        bool IsParsed(string valParse, out double OutParse)
+        {
+            Units vUnits = _Doc.GetUnits();
+            bool vResult = UnitFormatUtils.TryParse(vUnits, UnitType.UT_Length, valParse, out OutParse);
             return vResult;
         }
 

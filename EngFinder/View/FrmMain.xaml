@@ -105,7 +105,7 @@
         <TextBlock Name="TextBlockError" TextWrapping="Wrap" Text="" Margin="-75,497,257,-105" Grid.Row="1" />
 
         <!--4 Isolate or select elements-->
-        <Button Style="{DynamicResource MainButtonStyle}" Content="SELECT ALL" HorizontalAlignment="Left" Margin="11,471,0,0" Grid.Row="1" VerticalAlignment="Top" Width="115" Height="26"   Click="HighlightElements_click"/>
+        <Button Style="{DynamicResource MainButtonStyle}" Content="HIGHLIGHT ALL" HorizontalAlignment="Left" Margin="11,471,0,0" Grid.Row="1" VerticalAlignment="Top" Width="115" Height="26"   Click="HighlightElements_click"/>
         <Button Style="{DynamicResource MainButtonStyle}" Content="ISOLATE ALL" HorizontalAlignment="Left" Margin="155,471,0,0" Grid.Row="1" VerticalAlignment="Top" Width="115" Height="26" Click="IsolateElements_click"/>
 
 

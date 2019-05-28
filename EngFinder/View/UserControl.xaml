@@ -4,8 +4,7 @@
                      x:Class="EngFinder.UserControl"
                      xmlns:system="clr-namespace:System;assembly=mscorlib"
                      xmlns:local="clr-namespace:EngFinder"
-                        xmlns:sw="clr-namespace:WpfStyleableWindow.StyleableWindow">
-
+                        xmlns:sw="clr-namespace:WpfStyleableWindow.StyleableWindow;assembly=">
 
     <!-- Colors of the bar-->
     <SolidColorBrush x:Key="WindowColor" Color="Red"/>
@@ -927,7 +926,7 @@
                         IsItemsHost="True" />
                         </ScrollViewer>
                     </Border>
-                    
+
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsEnabled"
                    Value="false">
@@ -1120,7 +1119,125 @@
 
     <CollectionViewSource x:Key="FilterOptionsBridge" Source="{Binding Path=CategoryObjects}" />
 
-    
+
+
+    <Style x:Key="ComboBoxTextBoxStyle" TargetType="{x:Type TextBox}">
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="Foreground" Value="LightGray"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="FontSize" Value="14px"/>
+        <Setter Property="Cursor" Value="Arrow"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type TextBox}">
+                    <Grid>
+                        <Border x:Name="TextBorder"
+                            CornerRadius="3,0,0,3"
+                            BorderThickness="0.8,0.8,0,0.8"
+                            Background="White"
+                            BorderBrush="Gray">
+                            <ScrollViewer x:Name="PART_ContentHost"/>
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ComboBoxButtonStyle" TargetType="{x:Type ToggleButton}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToggleButton">
+                    <Grid x:Name="gd">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition Width="20" />
+                        </Grid.ColumnDefinitions>
+                        <Border x:Name="Border" SnapsToDevicePixels="True" Grid.ColumnSpan="2" Background="White" BorderBrush="Gray" BorderThickness="0,0.8,0.8,0.8" CornerRadius="0 5 5 0"/>
+                        <Border x:Name="Boredr1" SnapsToDevicePixels="True" Grid.Column="1"  Margin="1" Background="White" BorderBrush="White" BorderThickness="0,0.8,0.8,0.8" CornerRadius="5,5,5,5"/>
+                        <Path x:Name="Arrow" SnapsToDevicePixels="True" Grid.Column="1" Fill="#7A7A7A" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M 0 0 L 6 6 L 12 0 Z" />
+                        <ContentPresenter Grid.Column="0" TextElement.Foreground="Orange"></ContentPresenter>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="ToggleButton.IsMouseOver" Value="True">
+                            <Setter TargetName="Arrow" Property="Fill" Value="Gray"/>
+                        </Trigger>
+                        <Trigger Property="ToggleButton.IsChecked" Value="True">
+                            <Setter TargetName="Arrow" Property="Data" Value="M 0 6 L 12 6 L 6 0 Z"/>
+                            <Setter TargetName="Arrow" Property="Fill" Value="Black"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="gd" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style  x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ComboBox}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition MaxWidth="18"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="PART_EditableTextBox"
+                             Style="{StaticResource ComboBoxTextBoxStyle}"
+                             Padding="10 4 0 0"
+                             Height="{TemplateBinding Height}"/>
+                        <ToggleButton Grid.Column="1" Margin="-3 0 0 0"
+                            Height="{TemplateBinding Height}"
+                            Style="{StaticResource ComboBoxButtonStyle}"
+                            Focusable="False"
+                            IsChecked="{Binding Path=IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}"
+                            ClickMode="Press">
+                        </ToggleButton>
+                        <ContentPresenter Name="ContentSite"
+                            Content="{TemplateBinding SelectionBoxItem}"
+                            ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}"
+                            ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Left"
+                            Margin="5,0,0,0"/>
+                        <Popup Name="Popup"
+                            Placement="Bottom"
+                            IsOpen="{TemplateBinding IsDropDownOpen}"
+                            AllowsTransparency="True" 
+                            Focusable="False"
+                            PopupAnimation="Slide">
+                            <Grid Name="DropDown"
+                                SnapsToDevicePixels="True"                
+                                MinWidth="{TemplateBinding ActualWidth}"
+                                MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                Margin="5,0,5,5">
+                                <Border 
+                                    x:Name="DropDownBorder"
+                                    BorderThickness="1"
+                                    CornerRadius="5"
+                                    Background="White"
+                                    BorderBrush="White">
+                                    <Border.Effect>
+                                        <DropShadowEffect BlurRadius="5" Color="Gray" Opacity="0.8" ShadowDepth="0" Direction="0"/>
+                                    </Border.Effect>
+                                </Border>
+                                <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                    <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                </ScrollViewer>
+                            </Grid>
+                        </Popup>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="ComboItemStyle" TargetType="{x:Type ComboBoxItem}">
         <Setter Property="Template">
             <Setter.Value>
@@ -1131,7 +1248,7 @@
                     <ControlTemplate.Triggers>
                         <Trigger Property="ComboBoxItem.IsMouseOver" Value="True">
                             <Setter TargetName="gd"  Property="Background" Value="LightGray"></Setter>
-                            
+
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -1139,4 +1256,5 @@
         </Setter>
     </Style>
 
-</ResourceDictionary> 
+
+</ResourceDictionary>

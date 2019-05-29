@@ -82,6 +82,7 @@ namespace EngFinder.Core
         {
             bool vResult = false;
             List<RevitParameterInfocs> vList = GetParametersBy(valElement);
+         
             if (vList != null)
             {
                 if (string.IsNullOrEmpty(valValueToString))

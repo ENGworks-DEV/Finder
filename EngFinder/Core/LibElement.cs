@@ -212,12 +212,10 @@ namespace EngFinder.Core
             {
                 LibParameters insLibParameters = new LibParameters(_Doc);
                 var vParameter = vElement.get_Parameter((BuiltInParameter)valRevitParameter.ElementId.IntegerValue);
-                var demo = vParameter.AsValueString();
                 var vDiferen = Math.Round(vParameter.AsDouble(), 2) - Math.Round(Convert.ToDouble(valValue), 2);
                 if (vDiferen < 0)
                 {
                     vDiferen = vDiferen * -1;
-
                 }
                 if (vDiferen < 0.01)
                 {

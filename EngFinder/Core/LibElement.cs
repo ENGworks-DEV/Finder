@@ -15,7 +15,7 @@ namespace EngFinder.Core
         {
             _Doc = IntDocument;
         }
-       public IList<Element> GetBy(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue)
+        public IList<Element> GetBy(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue)
         {
             IList<Element> vResult = new List<Element>();
             var ee = (BuiltInParameter)valRevitParameter.ElementId.IntegerValue;
@@ -24,7 +24,7 @@ namespace EngFinder.Core
             bool vIsParse = false;
             double vData = 0;
             string vValueToString = valValue;
-            if (IsParsed(valValue,out vData))
+            if (IsParsed(valValue, out vData))
             {
                 valValue = vData.ToString();
                 vIsParse = true;
@@ -33,7 +33,7 @@ namespace EngFinder.Core
             if (insLibNumeric.IsDouble(valValue))
             {
                 vResult = GetElementValueDouble(valRevitParameter, valCategoryElementId, valValue);
-                if (vResult.Count ==0)
+                if (vResult.Count == 0)
                 {
                     if (vIsParse)
                     {
@@ -129,7 +129,7 @@ namespace EngFinder.Core
         }
 
 
-        public IList<Element> GetElementValueDoubleLessOrEqual(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue,  string valValueToString)
+        public IList<Element> GetElementValueDoubleLessOrEqual(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue, string valValueToString)
         {
             IList<Element> vResult = new List<Element>();
             IList<Element> vResultTemp = new List<Element>();
@@ -146,7 +146,7 @@ namespace EngFinder.Core
                 {
                     Double vNum = 0;
                     Double.TryParse(valValue, out vNum);
-                    ruleValDb = vNum+0.001;
+                    ruleValDb = vNum + 0.001;
                 }
                 ParameterValueProvider pvp = new ParameterValueProvider(valRevitParameter.ElementId);
                 FilterNumericLessOrEqual fnrv = new FilterNumericLessOrEqual();
@@ -163,7 +163,7 @@ namespace EngFinder.Core
                     }
                 }
             }
-            vResult= GetElementValueToString(valRevitParameter, vResultTemp, valValueToString);
+            vResult = GetElementValueToString(valRevitParameter, vResultTemp, valValueToString, valValue);
             return vResult;
         }
 
@@ -201,17 +201,25 @@ namespace EngFinder.Core
                     }
                 }
             }
-            vResult = GetElementValueToString(valRevitParameter, vResultTemp, valValueToString);
+            vResult = GetElementValueToString(valRevitParameter, vResultTemp, valValueToString, valValue);
             return vResult;
         }
 
-        public IList<Element> GetElementValueToString(RevitParameter valRevitParameter, IList<Element> valElements,  string valValueToString)
+        public IList<Element> GetElementValueToString(RevitParameter valRevitParameter, IList<Element> valElements, string valValueToString, string valValue)
         {
             IList<Element> vResult = new List<Element>();
             foreach (var vElement in valElements)
             {
                 LibParameters insLibParameters = new LibParameters(_Doc);
-                if (insLibParameters.Contains(valValueToString, valRevitParameter, vElement))
+                var vParameter = vElement.get_Parameter((BuiltInParameter)valRevitParameter.ElementId.IntegerValue);
+                var demo = vParameter.AsValueString();
+                var vDiferen = Math.Round(vParameter.AsDouble(), 2) - Math.Round(Convert.ToDouble(valValue), 2);
+                if (vDiferen < 0)
+                {
+                    vDiferen = vDiferen * -1;
+
+                }
+                if (vDiferen < 0.01)
                 {
                     vResult.Add(vElement);
                 }
@@ -222,7 +230,7 @@ namespace EngFinder.Core
         bool IsParsed(string valParse, out double OutParse)
         {
             Units vUnits = _Doc.GetUnits();
-            bool vResult = UnitFormatUtils.TryParse(vUnits, UnitType.UT_Length, valParse,  out OutParse);
+            bool vResult = UnitFormatUtils.TryParse(vUnits, UnitType.UT_Length, valParse, out OutParse);
             return vResult;
         }
 

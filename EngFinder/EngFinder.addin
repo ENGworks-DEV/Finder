@@ -1,20 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
-  <AddIn Type="Command">
-    <Text>ENGFinder</Text>
-    <Description>Some description for EngFinder</Description>
-    <Assembly>EngFinder.dll</Assembly>
-    <FullClassName>EngFinder.Command</FullClassName>
-    <ClientId>449ffa40-7b2c-4007-bfb6-55828ae894d5</ClientId>
-    <VendorId>com.typepad.thebuildingcoder</VendorId>
-    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
-  </AddIn>
   <AddIn Type="Application">
     <Name>ENGFinder</Name>
     <Assembly>EngFinder.dll</Assembly>
-    <FullClassName>EngFinder.App</FullClassName>
-    <ClientId>3c13b613-6ec9-4c78-9ff3-cecfb9e54f1b</ClientId>
-    <VendorId>com.typepad.thebuildingcoder</VendorId>
-    <VendorDescription>The Building Coder, http://thebuildingcoder.typepad.com</VendorDescription>
+    <FullClassName>ExternalApp.CsAddpanel</FullClassName>
+    <ClientId>3c13b613-6ec9-4c78-9ff3-cecfb9e52f1b</ClientId>
+    <VendorId>ENGW</VendorId>
+    <VendorDescription>EngWorks</VendorDescription>
   </AddIn>
 </RevitAddIns>

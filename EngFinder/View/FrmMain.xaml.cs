@@ -301,27 +301,39 @@ namespace EngFinder.View
                     ogs.SetProjectionFillPatternId(solidFill.Id);
                     ogs.SetProjectionFillColor(new Autodesk.Revit.DB.Color(0, 255, 0));
 
-                    List<ElementId> vIds = new List<ElementId>();
-                    foreach (Element vData in ElementListView.Items)
+
+                    try
                     {
-                       
-                        using (Transaction t = new Transaction(_Doc, "Highlight element"))
+
+                        List<ElementId> vIds = new List<ElementId>();
+                        foreach (Element vData in ElementListView.Items)
                         {
-                            try
+                            vIds.Add(vData.Id);
+                            using (Transaction t = new Transaction(_Doc, "Highlight element"))
                             {
-                                
-                                _Doc.ActiveView.SetElementOverrides(vData.Id, ogs);
-                                
-                            }
-                            catch (Exception ex)
-                            {
-                                TaskDialog.Show("Exception", ex.ToString());
+                                try
+                                {
+
+                                    _Doc.ActiveView.SetElementOverrides(vData.Id, ogs);
+
+                                }
+                                catch (Exception ex)
+                                {
+                                    TaskDialog.Show("Exception", ex.ToString());
+                                }
+
+
+                                t.Commit();
+
                             }
 
-                            uiDoc.RefreshActiveView();
-                            t.Commit();
-                            
                         }
+                        _Doc.ActiveView.IsolateElementsTemporary(vIds);
+                        _Doc.ActiveView.DisableTemporaryViewMode(TemporaryViewMode.TemporaryHideIsolate);
+                    }
+                    catch (Exception ex)
+                    {
+                        TaskDialog.Show("Exception", ex.ToString());
                     }
 
                 }
@@ -329,6 +341,7 @@ namespace EngFinder.View
                 {
                     TextBlockError.Text = vEx.Message;
                 }
+                uiDoc.RefreshActiveView();
             }
 
         }

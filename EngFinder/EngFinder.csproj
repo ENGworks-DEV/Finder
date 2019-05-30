@@ -73,6 +73,7 @@
     <Compile Include="Core\LibElement.cs" />
     <Compile Include="Core\LibNumeric.cs" />
     <Compile Include="Core\LibParameters.cs" />
+    <Compile Include="ExternalApp.cs" />
     <Compile Include="Model\RevitParameter.cs" />
     <Compile Include="Model\RevitParameterInfocs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,9 +95,9 @@
   <ItemGroup>
     <Content Include="EngFinder.addin" />
     <Resource Include="View\Search.png" />
-    <Resource Include="View\FinderLogo.png">
+    <EmbeddedResource Include="View\FinderLogo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Page Include="View\FrmMain.xaml">
@@ -113,8 +114,8 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy "$(ProjectDir)*.addin" "$(AppData)\Autodesk\REVIT\Addins\2018"
-copy "$(ProjectDir)bin\debug\*.dll" "$(AppData)\Autodesk\REVIT\Addins\2018"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

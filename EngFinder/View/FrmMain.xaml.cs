@@ -111,7 +111,10 @@ namespace EngFinder.View
             vBuiltInCats.Add(BuiltInCategory.OST_PipeCurves);
             vBuiltInCats.Add(BuiltInCategory.OST_PipeFitting);
             vBuiltInCats.Add(BuiltInCategory.OST_PipeAccessory);
-
+            vBuiltInCats.Add(BuiltInCategory.OST_FabricationPipework);
+            vBuiltInCats.Add(BuiltInCategory.OST_FabricationContainment);
+            vBuiltInCats.Add(BuiltInCategory.OST_FabricationDuctworkInsulation);
+            vBuiltInCats.Add(BuiltInCategory.OST_FabricationDuctworkRise);
 
 
             _Category = new List<Category>();

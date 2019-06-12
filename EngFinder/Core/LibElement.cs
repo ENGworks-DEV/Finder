@@ -56,6 +56,7 @@ namespace EngFinder.Core
         private IList<Element> GetElementValueIntOrstring(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue)
         {
             IList<Element> vResult = new List<Element>();
+            IList<Element> vResultTemp = new List<Element>();
             foreach (var vCategoryId in valCategoryElementId)
             {
                 IList<ElementFilter> vList = new List<ElementFilter>();
@@ -86,7 +87,7 @@ namespace EngFinder.Core
                 {
                     if (vElements.Count > 0)
                     {
-                        vResult = vElements.Concat(vElements).ToList();
+                        vResult = vResultTemp.Concat(vElements).ToList();
                     }
                 }
             }

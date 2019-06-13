@@ -8,7 +8,6 @@
 AppId={{6C5BD2BF-3CEE-45DD-A29C-B8897AA2C90A}
 AppName=ENGworks Finder 2018 Setup    
 AppVersion=1.0.0
-;AppVerName=Synchro Setup 1.01
 AppPublisher=ENGworks
 AppPublisherURL=-
 AppSupportURL=-
@@ -21,7 +20,7 @@ OutputBaseFilename=ENGworks Finder 2018 Setup 1.0.0
 Compression=lzma
 SolidCompression=yes
 OutputManifestFile=Setup-Manifest.txt
-
+OutputDir=".\bin\Install\"
 [Languages]
 Name: "english"; MessagesFile: "compiler:Default.isl"
 

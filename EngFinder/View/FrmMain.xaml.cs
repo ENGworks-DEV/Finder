@@ -360,13 +360,10 @@ namespace EngFinder.View
 
         }
 
-        private void AllIndustry_Click(object sender, RoutedEventArgs e)
-        {
+        private void AllIndustry_Click(object sender, RoutedEventArgs e) {
             CategoryObjects.Clear();
-            foreach (var vData in _Category.OrderBy(x => x.Name))
-            {
-                CheckedListItem vRecord = new CheckedListItem
-                {
+            foreach (var vData in _Category.OrderBy(x => x.Name)) {
+                CheckedListItem vRecord = new CheckedListItem {
                     Id = vData.Id.ToString(),
                     Name = vData.Name,
                     IsChecked = allIndustry.IsChecked ?? false

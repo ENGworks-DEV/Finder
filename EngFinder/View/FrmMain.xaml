@@ -41,11 +41,11 @@
 
 
         <!--1 Select Categories-->
-        <ComboBox Text="1. Select Category Name" ItemContainerStyle="{DynamicResource ComboItemStyle}" TextSearch.TextPath ="Industry"  Name="industry" SelectionChanged="LbActors_SelectionChanged" IsEditable="True" IsReadOnly="True" Margin="11,20,10,14" FontFamily="Roboto" FontSize="14px" VerticalAlignment="Center" Foreground="LightGray" Height="27" Padding="10 4 0 0" >
+        <ComboBox Text="1. Select Category Name" ItemContainerStyle="{DynamicResource ComboItemStyle}" TextSearch.TextPath ="Industry"  Name="industry" SelectionChanged="LbActors_SelectionChanged" IsEditable="True" IsReadOnly="True" Margin="11,0,10,14.6" FontFamily="Roboto" FontSize="14px" VerticalAlignment="Bottom" Foreground="LightGray" Height="27" Padding="10 4 0 0" >
             <ComboBox.ItemsSource>
                 <CompositeCollection>
                     <ComboBoxItem>
-                        <!--<CheckBox x:Name="allIndustry">All</CheckBox>-->
+                        <CheckBox x:Name="allIndustry" IsChecked="True" Click="AllIndustry_Click">All</CheckBox>
                     </ComboBoxItem>
                     <CollectionContainer Collection="{Binding Source={StaticResource FilterOptionsBridge}}" />
                 </CompositeCollection>

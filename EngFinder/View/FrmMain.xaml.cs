@@ -70,6 +70,7 @@ namespace EngFinder.View
             LibParameters inSLibParameters = new LibParameters(_Doc);
             List<ElementId> vCatList = CategoriesList();
             _RevitParameter = inSLibParameters.GetFilterByCategory(vCatList);
+            _RevitParameter = _RevitParameter.GroupBy(p => p.Name).Select(x => x.First()).ToList();
             if (valFromWindowLoaded)
             {
                 RevitParameters = new ObservableCollection<RevitParameter>(_RevitParameter.OrderBy(x => x.Name));
@@ -249,8 +250,20 @@ namespace EngFinder.View
         void FilterParameter(string valFilter)
         {
             LibElement vLibElement = new LibElement(_Doc);
-            IList<Element> vList = vLibElement.GetBy((RevitParameter)ListParameter.SelectedItem, CategoriesList(), valFilter);
-            ElementList = new ObservableCollection<Element>(vList);
+            LibParameters inSLibParameters = new LibParameters(_Doc);
+            List<RevitParameter> vParamsList = inSLibParameters.GetFilterByCategory(CategoriesList());
+            RevitParameter vPickedElement = (RevitParameter)ListParameter.SelectedItem;
+            List<RevitParameter> vCommonParameters = vParamsList.FindAll(p => p.Name.Equals(vPickedElement.Name));
+            IList<Element> vResult = new List<Element>();
+
+            foreach (RevitParameter vParam in vCommonParameters) {
+                IList<Element> vList = vLibElement.GetBy(vParam, CategoriesList(), valFilter);
+                if (null != vList) {
+                    vResult = vResult.Concat(vList).ToList();
+                }
+            }
+
+            ElementList = new ObservableCollection<Element>(vResult);
             ElementListView.ItemsSource = ElementList;
         }
 

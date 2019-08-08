@@ -49,15 +49,9 @@ namespace EngFinder.Core
                         vRecord.ElementId = vElementId;
                         vRecord.Name = vName;
 
-                        if (!vResult.Exists(vListItem => vListItem.Name.Equals(vRecord.Name)))
-                        {
-                            vResult.Add(vRecord);
-                        }
-                        
+                        vResult.Add(vRecord);
+
                     }
-
-
-                   
                 }
             }
             return vResult;

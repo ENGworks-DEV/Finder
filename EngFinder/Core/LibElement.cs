@@ -60,7 +60,6 @@ namespace EngFinder.Core
         {
             IList<Element> vResult = new List<Element>();
             IList<Element> vResultTemp = new List<Element>();
-            Units b = _Doc.GetUnits();
             
             foreach (var vCategoryId in valCategoryElementId)
             {

@@ -1,9 +1,12 @@
 ﻿using Autodesk.Revit.DB;
 using EngFinder.Model;
+using EngFinder.Utils;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace EngFinder.Core
@@ -18,9 +21,6 @@ namespace EngFinder.Core
         public IList<Element> GetBy(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue)
         {
             IList<Element> vResult = new List<Element>();
-            var ee = (BuiltInParameter)valRevitParameter.ElementId.IntegerValue;
-            var param = _Doc.GetElement(ee.ToString());
-            var it = _Doc.ParameterBindings.ForwardIterator();
             bool vIsParse = false;
             double vData = 0;
             string vValueToString = valValue;
@@ -49,6 +49,9 @@ namespace EngFinder.Core
             else
             {
                 vResult = GetElementValueIntOrstring(valRevitParameter, valCategoryElementId, valValue);
+                if (vResult.Count <= 0) {
+                    vResult = FindByInternalValue(valRevitParameter, valCategoryElementId, valValue);
+                }
             }
             return vResult;
         }
@@ -57,6 +60,7 @@ namespace EngFinder.Core
         {
             IList<Element> vResult = new List<Element>();
             IList<Element> vResultTemp = new List<Element>();
+            
             foreach (var vCategoryId in valCategoryElementId)
             {
                 IList<ElementFilter> vList = new List<ElementFilter>();
@@ -233,6 +237,46 @@ namespace EngFinder.Core
             return vResult;
         }
 
+        private IList<Element> FindByInternalValue(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue)
+        {
+            LibNumeric vLibNumeric = new LibNumeric();
+            List<Element> vResult = new List<Element>();
+            IList<string> vInternalValues = GetInternalValue(valValue);
+            foreach (var vInternalValue in vInternalValues)
+            {
+                if (vLibNumeric.IsDouble(vInternalValue))
+                {
+                    IList<Element> vSearchResult = GetElementValueDouble(valRevitParameter, valCategoryElementId, vInternalValue);
+                    vResult = vResult.Concat(vSearchResult).ToList();
+                }
+            }
+            return vResult;
+        }
 
+        private IList<string> GetInternalValue(string valValue)
+        {
+            List<string> vResult = new List<string>();
+            Match vRegexMatch = Regex.Match(valValue, @"([-+]?[0-9]*\.?[0-9]+)"); // Matches numbers including floats and integers.
+            if (!vRegexMatch.Success)
+            {
+                return vResult;
+            }
+
+            LibNumeric vLibNum = new LibNumeric();
+            UnitsAbbrev vUnitsAbbreviations = new UnitsAbbrev();
+            Dictionary<DisplayUnitType, string> vDictionary = vUnitsAbbreviations.UnitAbbrevations();
+            IEnumerable<KeyValuePair<DisplayUnitType, string>> vMatches = vDictionary.Where(vItem => Regex.IsMatch(valValue, @"(^|\s)" +vItem.Value+ "(\\s|$)")); //Finds the matching Display Unit Abbreviation.
+            if (vLibNum.IsDouble(vRegexMatch.Value))
+            {
+                double vDoubleValue = double.Parse(vRegexMatch.Value, System.Globalization.CultureInfo.InvariantCulture);
+                foreach (KeyValuePair<DisplayUnitType, string> vMatch in vMatches)
+                {
+                    DisplayUnitType vDisplayUnit = vMatch.Key;
+                    var vInternalUnitValue = UnitUtils.ConvertToInternalUnits(vDoubleValue, vDisplayUnit);
+                    vResult.Add(vInternalUnitValue.ToString());
+                }
+            }
+            return vResult;
+        }
     }
 }

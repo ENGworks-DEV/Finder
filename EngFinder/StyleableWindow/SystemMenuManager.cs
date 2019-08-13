@@ -7,29 +7,23 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interop;
 
-namespace WpfStyleableWindow.StyleableWindow
-{
-    public static class SystemMenuManager
-    {        
-        public static void ShowMenu(Window targetWindow, Point menuLocation)
-        {
+namespace WpfStyleableWindow.StyleableWindow {
+    public static class SystemMenuManager {
+        public static void ShowMenu(Window targetWindow, Point menuLocation) {
             if (targetWindow == null)
                 throw new ArgumentNullException("TargetWindow is null.");
 
             int x, y;
 
-            try
-            {
+            try {
                 x = Convert.ToInt32(menuLocation.X);
                 y = Convert.ToInt32(menuLocation.Y);
-            }
-            catch (OverflowException)
-            {
+            } catch (OverflowException) {
                 x = 0;
                 y = 0;
             }
 
-            uint WM_SYSCOMMAND = 0x112, TPM_LEFTALIGN = 0x0000, TPM_RETURNCMD = 0x0100;           
+            uint WM_SYSCOMMAND = 0x112, TPM_LEFTALIGN = 0x0000, TPM_RETURNCMD = 0x0100;
 
             IntPtr window = new WindowInteropHelper(targetWindow).Handle;
 
@@ -44,8 +38,7 @@ namespace WpfStyleableWindow.StyleableWindow
         }
     }
 
-    internal static class NativeMethods
-    {
+    internal static class NativeMethods {
         [DllImport("user32.dll", CharSet = CharSet.Auto, SetLastError = true)]
         internal static extern IntPtr GetSystemMenu(IntPtr hWnd, bool bRevert);
 

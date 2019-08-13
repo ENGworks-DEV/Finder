@@ -9,45 +9,34 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace EngFinder.Core
-{
-    public class LibElement
-    {
+namespace EngFinder.Core {
+    public class LibElement {
         Document _Doc;
-        public LibElement(Document IntDocument)
-        {
+        public LibElement(Document IntDocument) {
             _Doc = IntDocument;
         }
-        public IList<Element> GetBy(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue)
-        {
+        public IList<Element> GetBy(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue) {
             IList<Element> vResult = new List<Element>();
             bool vIsParse = false;
             double vData = 0;
             string vValueToString = valValue;
-            if (IsParsed(valValue, out vData))
-            {
+            if (IsParsed(valValue, out vData)) {
                 valValue = vData.ToString();
                 vIsParse = true;
             }
             LibNumeric insLibNumeric = new LibNumeric();
-            if (insLibNumeric.IsDouble(valValue))
-            {
+            if (insLibNumeric.IsDouble(valValue)) {
                 vResult = GetElementValueDouble(valRevitParameter, valCategoryElementId, valValue);
-                if (vResult.Count == 0)
-                {
-                    if (vIsParse)
-                    {
+                if (vResult.Count == 0) {
+                    if (vIsParse) {
                         vResult = GetElementValueDoubleLessOrEqual(valRevitParameter, valCategoryElementId, valValue, vValueToString);
 
-                        if (vResult.Count == 0)
-                        {
+                        if (vResult.Count == 0) {
                             vResult = GetElementValueDoubleGreaterOrEqual(valRevitParameter, valCategoryElementId, valValue, vValueToString);
                         }
                     }
                 }
-            }
-            else
-            {
+            } else {
                 vResult = GetElementValueIntOrstring(valRevitParameter, valCategoryElementId, valValue);
                 if (vResult.Count <= 0) {
                     vResult = FindByInternalValue(valRevitParameter, valCategoryElementId, valValue);
@@ -56,13 +45,11 @@ namespace EngFinder.Core
             return vResult;
         }
 
-        private IList<Element> GetElementValueIntOrstring(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue)
-        {
+        private IList<Element> GetElementValueIntOrstring(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue) {
             IList<Element> vResult = new List<Element>();
             IList<Element> vResultTemp = new List<Element>();
-            
-            foreach (var vCategoryId in valCategoryElementId)
-            {
+
+            foreach (var vCategoryId in valCategoryElementId) {
                 IList<ElementFilter> vList = new List<ElementFilter>();
                 BuiltInCategory vBuiltInCategory = (BuiltInCategory)vCategoryId.IntegerValue;
                 ParameterValueProvider vPovider = new ParameterValueProvider(valRevitParameter.ElementId);
@@ -73,8 +60,7 @@ namespace EngFinder.Core
                 FilterRule vRuleRulestring = new FilterStringRule(vPovider, vEvaluator, vRulestring, false);
                 ElementParameterFilter vFilterRulestring = new ElementParameterFilter(vRuleRulestring);
                 LibNumeric insLibNumeric = new LibNumeric();
-                if (insLibNumeric.IsInt(valValue))
-                {
+                if (insLibNumeric.IsInt(valValue)) {
                     int vNum = 0;
                     int.TryParse(valValue, out vNum);
                     FilterNumericEquals vEvaluatorNumeri = new FilterNumericEquals();
@@ -87,10 +73,8 @@ namespace EngFinder.Core
                 LogicalOrFilter vLogicalOrFilter = new LogicalOrFilter(vList);
                 vCollector.WherePasses(vLogicalOrFilter);
                 IList<Element> vElements = vCollector.ToElements();
-                if (vElements != null)
-                {
-                    if (vElements.Count > 0)
-                    {
+                if (vElements != null) {
+                    if (vElements.Count > 0) {
                         vResult = vResultTemp.Concat(vElements).ToList();
                     }
                 }
@@ -98,11 +82,9 @@ namespace EngFinder.Core
             return vResult;
         }
 
-        public IList<Element> GetElementValueDouble(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue)
-        {
+        public IList<Element> GetElementValueDouble(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue) {
             IList<Element> vResult = new List<Element>();
-            foreach (var vCategoryId in valCategoryElementId)
-            {
+            foreach (var vCategoryId in valCategoryElementId) {
                 BuiltInCategory vBuiltInCategory = (BuiltInCategory)vCategoryId.IntegerValue;
                 ParameterValueProvider vPovider = new ParameterValueProvider(valRevitParameter.ElementId);
                 string vRulestring = valValue;
@@ -110,8 +92,7 @@ namespace EngFinder.Core
                 vCollector.OfCategory(vBuiltInCategory);
                 LibNumeric insLibNumeric = new LibNumeric();
                 double ruleValDb = 0.0;
-                if (insLibNumeric.IsDouble(valValue))
-                {
+                if (insLibNumeric.IsDouble(valValue)) {
                     Double vNum = 0;
                     Double.TryParse(valValue, out vNum);
                     ruleValDb = vNum;
@@ -122,10 +103,8 @@ namespace EngFinder.Core
                 var epf = new ElementParameterFilter(vFilterDoubleRule);
                 vCollector.WherePasses(epf);
                 IList<Element> vElements = vCollector.ToElements();
-                if (vElements != null)
-                {
-                    if (vElements.Count > 0)
-                    {
+                if (vElements != null) {
+                    if (vElements.Count > 0) {
                         vResult = vElements.Concat(vElements).ToList();
                     }
                 }
@@ -134,12 +113,10 @@ namespace EngFinder.Core
         }
 
 
-        public IList<Element> GetElementValueDoubleLessOrEqual(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue, string valValueToString)
-        {
+        public IList<Element> GetElementValueDoubleLessOrEqual(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue, string valValueToString) {
             IList<Element> vResult = new List<Element>();
             IList<Element> vResultTemp = new List<Element>();
-            foreach (var vCategoryId in valCategoryElementId)
-            {
+            foreach (var vCategoryId in valCategoryElementId) {
                 BuiltInCategory vBuiltInCategory = (BuiltInCategory)vCategoryId.IntegerValue;
                 ParameterValueProvider vPovider = new ParameterValueProvider(valRevitParameter.ElementId);
                 string vRulestring = valValue;
@@ -147,8 +124,7 @@ namespace EngFinder.Core
                 vCollector.OfCategory(vBuiltInCategory);
                 LibNumeric insLibNumeric = new LibNumeric();
                 double ruleValDb = 0.0;
-                if (insLibNumeric.IsDouble(valValue))
-                {
+                if (insLibNumeric.IsDouble(valValue)) {
                     Double vNum = 0;
                     Double.TryParse(valValue, out vNum);
                     ruleValDb = vNum + 0.001;
@@ -159,10 +135,8 @@ namespace EngFinder.Core
                 var epf = new ElementParameterFilter(vFilterDoubleRule);
                 vCollector.WherePasses(epf);
                 IList<Element> vElements = vCollector.ToElements();
-                if (vElements != null)
-                {
-                    if (vElements.Count > 0)
-                    {
+                if (vElements != null) {
+                    if (vElements.Count > 0) {
                         vResultTemp = vElements.Concat(vElements).ToList();
 
                     }
@@ -173,12 +147,10 @@ namespace EngFinder.Core
         }
 
 
-        public IList<Element> GetElementValueDoubleGreaterOrEqual(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue, string valValueToString)
-        {
+        public IList<Element> GetElementValueDoubleGreaterOrEqual(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue, string valValueToString) {
             IList<Element> vResult = new List<Element>();
             IList<Element> vResultTemp = new List<Element>();
-            foreach (var vCategoryId in valCategoryElementId)
-            {
+            foreach (var vCategoryId in valCategoryElementId) {
                 BuiltInCategory vBuiltInCategory = (BuiltInCategory)vCategoryId.IntegerValue;
                 ParameterValueProvider vPovider = new ParameterValueProvider(valRevitParameter.ElementId);
                 string vRulestring = valValue;
@@ -186,8 +158,7 @@ namespace EngFinder.Core
                 vCollector.OfCategory(vBuiltInCategory);
                 LibNumeric insLibNumeric = new LibNumeric();
                 double ruleValDb = 0.0;
-                if (insLibNumeric.IsDouble(valValue))
-                {
+                if (insLibNumeric.IsDouble(valValue)) {
                     Double vNum = 0;
                     Double.TryParse(valValue, out vNum);
                     ruleValDb = vNum + 0.001;
@@ -198,10 +169,8 @@ namespace EngFinder.Core
                 var epf = new ElementParameterFilter(vFilterDoubleRule);
                 vCollector.WherePasses(epf);
                 IList<Element> vElements = vCollector.ToElements();
-                if (vElements != null)
-                {
-                    if (vElements.Count > 0)
-                    {
+                if (vElements != null) {
+                    if (vElements.Count > 0) {
                         vResultTemp = vElements.Concat(vElements).ToList();
                     }
                 }
@@ -210,42 +179,34 @@ namespace EngFinder.Core
             return vResult;
         }
 
-        public IList<Element> GetElementValueToString(RevitParameter valRevitParameter, IList<Element> valElements, string valValueToString, string valValue)
-        {
+        public IList<Element> GetElementValueToString(RevitParameter valRevitParameter, IList<Element> valElements, string valValueToString, string valValue) {
             IList<Element> vResult = new List<Element>();
-            foreach (var vElement in valElements)
-            {
+            foreach (var vElement in valElements) {
                 LibParameters insLibParameters = new LibParameters(_Doc);
                 var vParameter = vElement.get_Parameter((BuiltInParameter)valRevitParameter.ElementId.IntegerValue);
                 var vDiferen = Math.Round(vParameter.AsDouble(), 2) - Math.Round(Convert.ToDouble(valValue), 2);
-                if (vDiferen < 0)
-                {
+                if (vDiferen < 0) {
                     vDiferen = vDiferen * -1;
                 }
-                if (vDiferen < 0.01)
-                {
+                if (vDiferen < 0.01) {
                     vResult.Add(vElement);
                 }
             }
             return vResult;
         }
 
-        bool IsParsed(string valParse, out double OutParse)
-        {
+        bool IsParsed(string valParse, out double OutParse) {
             Units vUnits = _Doc.GetUnits();
             bool vResult = UnitFormatUtils.TryParse(vUnits, UnitType.UT_Length, valParse, out OutParse);
             return vResult;
         }
 
-        private IList<Element> FindByInternalValue(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue)
-        {
+        private IList<Element> FindByInternalValue(RevitParameter valRevitParameter, List<ElementId> valCategoryElementId, string valValue) {
             LibNumeric vLibNumeric = new LibNumeric();
             List<Element> vResult = new List<Element>();
             IList<string> vInternalValues = GetInternalValue(valValue);
-            foreach (var vInternalValue in vInternalValues)
-            {
-                if (vLibNumeric.IsDouble(vInternalValue))
-                {
+            foreach (var vInternalValue in vInternalValues) {
+                if (vLibNumeric.IsDouble(vInternalValue)) {
                     IList<Element> vSearchResult = GetElementValueDouble(valRevitParameter, valCategoryElementId, vInternalValue);
                     vResult = vResult.Concat(vSearchResult).ToList();
                 }
@@ -253,24 +214,20 @@ namespace EngFinder.Core
             return vResult;
         }
 
-        private IList<string> GetInternalValue(string valValue)
-        {
+        private IList<string> GetInternalValue(string valValue) {
             List<string> vResult = new List<string>();
             Match vRegexMatch = Regex.Match(valValue, @"([-+]?[0-9]*\.?[0-9]+)"); // Matches numbers including floats and integers.
-            if (!vRegexMatch.Success)
-            {
+            if (!vRegexMatch.Success) {
                 return vResult;
             }
 
             LibNumeric vLibNum = new LibNumeric();
             UnitsAbbrev vUnitsAbbreviations = new UnitsAbbrev();
             Dictionary<DisplayUnitType, string> vDictionary = vUnitsAbbreviations.UnitAbbrevations();
-            IEnumerable<KeyValuePair<DisplayUnitType, string>> vMatches = vDictionary.Where(vItem => Regex.IsMatch(valValue, @"(^|\s)" +vItem.Value+ "(\\s|$)")); //Finds the matching Display Unit Abbreviation.
-            if (vLibNum.IsDouble(vRegexMatch.Value))
-            {
+            IEnumerable<KeyValuePair<DisplayUnitType, string>> vMatches = vDictionary.Where(vItem => Regex.IsMatch(valValue, @"(^|\s)" + vItem.Value + "(\\s|$)")); //Finds the matching Display Unit Abbreviation.
+            if (vLibNum.IsDouble(vRegexMatch.Value)) {
                 double vDoubleValue = double.Parse(vRegexMatch.Value, System.Globalization.CultureInfo.InvariantCulture);
-                foreach (KeyValuePair<DisplayUnitType, string> vMatch in vMatches)
-                {
+                foreach (KeyValuePair<DisplayUnitType, string> vMatch in vMatches) {
                     DisplayUnitType vDisplayUnit = vMatch.Key;
                     var vInternalUnitValue = UnitUtils.ConvertToInternalUnits(vDoubleValue, vDisplayUnit);
                     vResult.Add(vInternalUnitValue.ToString());

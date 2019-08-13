@@ -5,12 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EngFinder.Utils
-{
-    class UnitsAbbrev
-    {
-        public Dictionary<DisplayUnitType, string> UnitAbbrevations()
-        {
+namespace EngFinder.Utils {
+    class UnitsAbbrev {
+        public Dictionary<DisplayUnitType, string> UnitAbbrevations() {
             Dictionary<DisplayUnitType, string> abbrevations = new Dictionary<DisplayUnitType, string>();
             abbrevations.Add(DisplayUnitType.DUT_WATTS_PER_SQUARE_FOOT, "W/ft²");
             abbrevations.Add(DisplayUnitType.DUT_WATTS_PER_SQUARE_METER, "W/m²");

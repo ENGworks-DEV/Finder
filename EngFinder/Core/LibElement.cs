@@ -48,7 +48,7 @@ namespace EngFinder.Core
             }
             else
             {
-                vResult = GetElementValueIntOrstring(valRevitParameter, valCategoryElementId, valValue);
+                vResult = GetElementValueIntOrstring(valRevitParameter, valCategoryElementId, valValue);    
                 if (vResult.Count <= 0) {
                     vResult = FindByInternalValue(valRevitParameter, valCategoryElementId, valValue);
                 }
@@ -91,7 +91,9 @@ namespace EngFinder.Core
                 {
                     if (vElements.Count > 0)
                     {
-                        vResult = vResultTemp.Concat(vElements).ToList();
+                       foreach (var vElement in vElements) {
+                            vResult.Add(vElement);
+                        }
                     }
                 }
             }

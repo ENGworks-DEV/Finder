@@ -5,10 +5,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Markup;
 using System.IO;
 
-namespace ExternalApp
-{
-    class CsAddpanel : Autodesk.Revit.UI.IExternalApplication
-    {
+namespace ExternalApp {
+    class CsAddpanel : Autodesk.Revit.UI.IExternalApplication {
         // Generate an Guid for the App
         static AddInId m_appId = new AddInId(new Guid(
         "3c13b613-6ec9-4c78-9ff3-cecfb9e52f1b"));
@@ -18,16 +16,14 @@ namespace ExternalApp
           .GetExecutingAssembly().Location;
 
 
-        private System.Windows.Media.ImageSource PngImageSource(string embeddedPath)
-        {
+        private System.Windows.Media.ImageSource PngImageSource(string embeddedPath) {
             Stream stream = this.GetType().Assembly.GetManifestResourceStream(embeddedPath);
             var decoder = new System.Windows.Media.Imaging.PngBitmapDecoder(stream,
                 BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
             return decoder.Frames[0];
         }
 
-        public Autodesk.Revit.UI.Result OnStartup(UIControlledApplication application)
-        {
+        public Autodesk.Revit.UI.Result OnStartup(UIControlledApplication application) {
             // add new ribbon panel 
             RibbonPanel ribbonPanel = application.CreateRibbonPanel("Value Finder");
 
@@ -65,8 +61,7 @@ namespace ExternalApp
             return Result.Succeeded;
         }
 
-        public Result OnShutdown(UIControlledApplication application)
-        {
+        public Result OnShutdown(UIControlledApplication application) {
             return Result.Succeeded;
         }
     }

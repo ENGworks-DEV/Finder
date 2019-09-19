@@ -10,35 +10,29 @@ using System.Runtime.InteropServices;
 using System.Windows.Media;
 using System.Windows.Input;
 
-namespace WpfStyleableWindow.StyleableWindow
-{
-    public static class ShowSystemMenuBehavior
-    {        
+namespace WpfStyleableWindow.StyleableWindow {
+    public static class ShowSystemMenuBehavior {
         #region TargetWindow
 
-        public static Window GetTargetWindow(DependencyObject obj)
-        {
+        public static Window GetTargetWindow(DependencyObject obj) {
             return (Window)obj.GetValue(TargetWindow);
         }
 
-        public static void SetTargetWindow(DependencyObject obj, Window window)
-        {
+        public static void SetTargetWindow(DependencyObject obj, Window window) {
             obj.SetValue(TargetWindow, window);
         }
 
-        public static readonly DependencyProperty TargetWindow = DependencyProperty.RegisterAttached("TargetWindow", typeof(Window), typeof(ShowSystemMenuBehavior));        
+        public static readonly DependencyProperty TargetWindow = DependencyProperty.RegisterAttached("TargetWindow", typeof(Window), typeof(ShowSystemMenuBehavior));
 
         #endregion
 
         #region LeftButtonShowAt
 
-        public static UIElement GetLeftButtonShowAt(DependencyObject obj)
-        {
+        public static UIElement GetLeftButtonShowAt(DependencyObject obj) {
             return (UIElement)obj.GetValue(LeftButtonShowAt);
         }
 
-        public static void SetLeftButtonShowAt(DependencyObject obj, UIElement element)
-        {
+        public static void SetLeftButtonShowAt(DependencyObject obj, UIElement element) {
             obj.SetValue(LeftButtonShowAt, element);
         }
 
@@ -50,13 +44,11 @@ namespace WpfStyleableWindow.StyleableWindow
 
         #region RightButtonShow
 
-        public static bool GetRightButtonShow(DependencyObject obj)
-        {
+        public static bool GetRightButtonShow(DependencyObject obj) {
             return (bool)obj.GetValue(RightButtonShow);
         }
 
-        public static void SetRightButtonShow(DependencyObject obj, bool arg)
-        {
+        public static void SetRightButtonShow(DependencyObject obj, bool arg) {
             obj.SetValue(RightButtonShow, arg);
         }
 
@@ -67,23 +59,19 @@ namespace WpfStyleableWindow.StyleableWindow
         #endregion
 
         #region LeftButtonShowAt
-        
-        static void LeftButtonShowAtChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
+
+        static void LeftButtonShowAtChanged(object sender, DependencyPropertyChangedEventArgs e) {
             var element = sender as UIElement;
 
-            if (element != null)
-            {
+            if (element != null) {
                 element.MouseLeftButtonDown += LeftButtonDownShow;
             }
         }
 
         static bool leftButtonToggle = true;
 
-        static void LeftButtonDownShow(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (leftButtonToggle)
-            {
+        static void LeftButtonDownShow(object sender, System.Windows.Input.MouseButtonEventArgs e) {
+            if (leftButtonToggle) {
                 var element = ((UIElement)sender).GetValue(LeftButtonShowAt);
 
                 var showMenuAt = ((Visual)element).PointToScreen(new Point(0, 0));
@@ -93,9 +81,7 @@ namespace WpfStyleableWindow.StyleableWindow
                 SystemMenuManager.ShowMenu(targetWindow, showMenuAt);
 
                 leftButtonToggle = !leftButtonToggle;
-            }
-            else
-            {
+            } else {
                 leftButtonToggle = !leftButtonToggle;
             }
         }
@@ -104,18 +90,15 @@ namespace WpfStyleableWindow.StyleableWindow
 
         #region RightButtonShow handlers
 
-        private static void RightButtonShowChanged(object sender, DependencyPropertyChangedEventArgs e)
-        {
+        private static void RightButtonShowChanged(object sender, DependencyPropertyChangedEventArgs e) {
             var element = sender as UIElement;
 
-            if (element != null)
-            {
+            if (element != null) {
                 element.MouseRightButtonDown += RightButtonDownShow;
             }
         }
 
-        static void RightButtonDownShow(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
+        static void RightButtonDownShow(object sender, System.Windows.Input.MouseButtonEventArgs e) {
             var element = (UIElement)sender;
 
             var targetWindow = element.GetValue(TargetWindow) as Window;

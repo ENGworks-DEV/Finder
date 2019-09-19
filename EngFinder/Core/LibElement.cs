@@ -36,8 +36,12 @@ namespace EngFinder.Core {
                         }
                     }
                 }
-            } else {
-                vResult = GetElementValueIntOrstring(valRevitParameter, valCategoryElementId, valValue);
+
+            }
+            else
+            {
+                vResult = GetElementValueIntOrstring(valRevitParameter, valCategoryElementId, valValue);    
+              
                 if (vResult.Count <= 0) {
                     vResult = FindByInternalValue(valRevitParameter, valCategoryElementId, valValue);
                 }
@@ -73,9 +77,13 @@ namespace EngFinder.Core {
                 LogicalOrFilter vLogicalOrFilter = new LogicalOrFilter(vList);
                 vCollector.WherePasses(vLogicalOrFilter);
                 IList<Element> vElements = vCollector.ToElements();
-                if (vElements != null) {
-                    if (vElements.Count > 0) {
-                        vResult = vResultTemp.Concat(vElements).ToList();
+                if (vElements != null)
+                {
+                    if (vElements.Count > 0)
+                    {
+                       foreach (var vElement in vElements) {
+                            vResult.Add(vElement);
+                        }
                     }
                 }
             }

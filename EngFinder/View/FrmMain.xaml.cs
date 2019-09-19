@@ -302,22 +302,19 @@ namespace EngFinder.View
             UIApplication uiApp = p_commanddata.Application;
             UIDocument uiDoc = uiApp.ActiveUIDocument;
 
+
+
             if (ElementListView.Items.Count > 0)
             {
-                try
-                {
+                    try
+                    {
+                        OverrideGraphicSettings ogs = new OverrideGraphicSettings();
+                        Autodesk.Revit.DB.Color red = new Autodesk.Revit.DB.Color(255, 0, 0);
+                        Element solidFill = new FilteredElementCollector(_Doc).OfClass(typeof(FillPatternElement)).Where(q => q.Name.Contains("Solid")).First();
+
+                        ogs.SetProjectionLineColor(red);
+                        ogs.SetProjectionLineWeight(8);
                     
-
-                    OverrideGraphicSettings ogs = new OverrideGraphicSettings();
-                    Autodesk.Revit.DB.Color red = new Autodesk.Revit.DB.Color(255, 0, 0);
-                    Element solidFill = new FilteredElementCollector(_Doc).OfClass(typeof(FillPatternElement)).Where(q => q.Name.Contains("Solid")).First();
-
-                    ogs.SetProjectionLineColor(red);
-                    ogs.SetProjectionLineWeight(8);
-                    ogs.SetProjectionFillPatternId(solidFill.Id);
-                    ogs.SetProjectionFillColor(new Autodesk.Revit.DB.Color(0, 255, 0));
-
-
                     try
                     {
 
@@ -353,14 +350,15 @@ namespace EngFinder.View
                     }
 
                 }
-                catch (Exception vEx)
-                {
-                    TextBlockError.Text = vEx.Message;
-                }
-                uiDoc.RefreshActiveView();
+                    catch (Exception vEx)
+                    {
+                        TextBlockError.Text = vEx.Message;
+                    }
+                    uiDoc.RefreshActiveView();
+
             }
 
-        }
+            }
 
 
         private void LbActors_SelectionChanged(object sender, SelectionChangedEventArgs e)

@@ -10,17 +10,14 @@ using Autodesk.Revit.UI.Selection;
 using EngFinder.View;
 #endregion
 
-namespace EngFinder
-{
+namespace EngFinder {
     [Transaction(TransactionMode.Manual)]
-    public class Command : IExternalCommand
-    {
+    public class Command : IExternalCommand {
         public Result Execute(
           ExternalCommandData commandData,
           ref string message,
-          ElementSet elements)
-        {
-            
+          ElementSet elements) {
+
             UIApplication uiapp = commandData.Application;
             UIDocument uidoc = uiapp.ActiveUIDocument;
             Application app = uiapp.Application;
@@ -33,7 +30,7 @@ namespace EngFinder
             // Retrieve elements from database
 
             FrmMain vInsFrmMain = new FrmMain(doc, commandData);
-       
+
             vInsFrmMain.Show();
             return Result.Succeeded;
         }

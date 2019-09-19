@@ -9,39 +9,30 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Selection;
 using EngFinder.Model;
- 
 
-namespace EngFinder.Core
-{
-    public class LibParameters
-    {
+
+namespace EngFinder.Core {
+    public class LibParameters {
         Document _Doc;
         public LibParameters(Document IntDocument) {
             _Doc = IntDocument;
         }
 
-        public List<RevitParameter> GetFilterByCategory(List<ElementId> valValue)
-        {
+        public List<RevitParameter> GetFilterByCategory(List<ElementId> valValue) {
             List<RevitParameter> vResult = new List<RevitParameter>();
-            foreach (var vData in valValue.AsParallel())
-            {
+            foreach (var vData in valValue.AsParallel()) {
                 List<ElementId> vFilter = new List<ElementId>();
                 vFilter.Add(vData);
                 var vList = ParameterFilterUtilities.GetFilterableParametersInCommon(_Doc, vFilter);
                 //Category vCategory = _Doc.Settings.Categories.get_Item((BuiltInCategory)vData.IntegerValue);
-                foreach (ElementId vElementId in vList.AsParallel())
-                {
+                foreach (ElementId vElementId in vList.AsParallel()) {
                     RevitParameter vRecord = new RevitParameter();
                     string vName = string.Empty;
-                    if (vResult.Where(p => p.Id == vElementId.IntegerValue).Count() == 0)
-                    {
+                    if (vResult.Where(p => p.Id == vElementId.IntegerValue).Count() == 0) {
 
-                        if (vElementId.IntegerValue < 0)
-                        {
+                        if (vElementId.IntegerValue < 0) {
                             vName = LabelUtils.GetLabelFor((BuiltInParameter)vElementId.IntegerValue).Trim();
-                        }
-                        else
-                        {
+                        } else {
                             vName = _Doc.GetElement(vElementId).Name.Trim();
                         }
 
@@ -57,14 +48,12 @@ namespace EngFinder.Core
             return vResult;
         }
 
-        public  List<RevitParameterInfocs> GetParametersBy(Element valElement)
-        {
+        public List<RevitParameterInfocs> GetParametersBy(Element valElement) {
             List<RevitParameterInfocs> vResult =
                 (from Parameter p in valElement.Parameters
-                 select new RevitParameterInfocs
-                 {
+                 select new RevitParameterInfocs {
                      Name = p.Definition.Name,
-                     Value = p.AsString()?? p.AsValueString(),
+                     Value = p.AsString() ?? p.AsValueString(),
                      Group = p.Definition.ParameterGroup,
                      Type = p.Definition.ParameterType,
                      Storage = p.StorageType,
@@ -76,19 +65,14 @@ namespace EngFinder.Core
             return vResult;
         }
 
-        public bool Contains(string valValueToString, RevitParameter valRevitParameter, Element valElement)
-        {
+        public bool Contains(string valValueToString, RevitParameter valRevitParameter, Element valElement) {
             bool vResult = false;
             List<RevitParameterInfocs> vList = GetParametersBy(valElement);
-           
-            if (vList != null)
-            {
-                if (string.IsNullOrEmpty(valValueToString))
-                {
+
+            if (vList != null) {
+                if (string.IsNullOrEmpty(valValueToString)) {
                     vResult = (vList.Where(p => p.ID == valRevitParameter.Id.ToString()).Count() > 0);
-                }
-                else
-                {
+                } else {
                     vResult = (vList.Where(p => p.ID == valRevitParameter.Id.ToString() && p.Value == valValueToString).Count() > 0);
 
                 }

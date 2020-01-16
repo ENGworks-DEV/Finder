@@ -116,6 +116,7 @@ namespace EngFinder.View
             vBuiltInCats.Add(BuiltInCategory.OST_FabricationContainment);
             vBuiltInCats.Add(BuiltInCategory.OST_FabricationDuctworkInsulation);
             vBuiltInCats.Add(BuiltInCategory.OST_FabricationDuctworkRise);
+            vBuiltInCats.Add(BuiltInCategory.OST_FabricationDuctwork);
 
 
             _Category = new List<Category>();

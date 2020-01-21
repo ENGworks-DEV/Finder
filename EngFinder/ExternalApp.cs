@@ -42,9 +42,6 @@ namespace ExternalApp {
             pushButton.LargeImage = PngImageSource("EngFinder.View.FinderLogo.png");
 
 
-            // Context (F1) Help - new in 2013 
-            //string appData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData); // %AppData% 
-
             string path;
             path = System.IO.Path.GetDirectoryName(
                System.Reflection.Assembly.GetExecutingAssembly().Location);

@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EngFinder.View"
              mc:Ignorable="d" 
-             Title="FINDER" Loaded="Window_Loaded" Width="300" MaxHeight="650" MaxWidth="100"  MinHeight="550" MinWidth="300" Height="609.5" WindowStartupLocation="CenterScreen"
+             Title="FINDER" Loaded="Window_Loaded" Width="301" MaxHeight="650" MaxWidth="150"  MinHeight="550" MinWidth="300" Height="609.5" WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize" 
          
         Style="{DynamicResource CustomWindowStyle}"
@@ -13,11 +13,6 @@
     <Window.InputBindings>
         <KeyBinding Key="A" Modifiers="Control" Command="SelectAll" />
     </Window.InputBindings>
-
-    <!--<Window.CommandBindings>
-        <CommandBinding Command="SelectAll" Executed="AddButton_Click" />
-
-    </Window.CommandBindings>-->
 
     <Window.Resources>
 
@@ -30,101 +25,93 @@
 
     </Window.Resources>
 
-    <Grid Margin="0,0,10,0" Background="White" Height="570" VerticalAlignment="Top" HorizontalAlignment="Right" Width="280">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="11*"/>
-            <RowDefinition Height="91*"/>
-        </Grid.RowDefinitions>
-        <Grid.Effect>
+    <Border Background="White" BorderBrush="Transparent" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5" Margin="10,-13,9,10">
+        <Border.Effect>
             <DropShadowEffect BlurRadius="20" Color="Gray" Opacity="0.3" ShadowDepth="0" Direction="0"></DropShadowEffect>
-        </Grid.Effect>
+        </Border.Effect>
 
 
-        <!--1 Select Categories-->
-        <ComboBox Text="1. Select Category Name" ItemContainerStyle="{DynamicResource ComboItemStyle}" TextSearch.TextPath ="Industry"  Name="industry" SelectionChanged="LbActors_SelectionChanged" IsEditable="True" IsReadOnly="True" Margin="11,0,10,14.6" FontFamily="Roboto" FontSize="14px" VerticalAlignment="Bottom" Foreground="LightGray" Height="27" Padding="10 4 0 0" >
-            <ComboBox.ItemsSource>
-                <CompositeCollection>
-                    <ComboBoxItem>
-                        <CheckBox x:Name="allIndustry" IsChecked="True" Click="AllIndustry_Click">All</CheckBox>
-                    </ComboBoxItem>
-                    <CollectionContainer Collection="{Binding Source={StaticResource FilterOptionsBridge}}" />
-                </CompositeCollection>
-            </ComboBox.ItemsSource>
-            <ComboBox.ItemTemplate>
-                <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                        <CheckBox Name="chkTask" Content="{Binding Name}" IsChecked="{Binding IsChecked}" Click="CheckBox_Click" TextBlock.FontSize="12" TextBlock.FontFamily="Segoe UI" Margin="11,2,0,0">
-                            <!--<TextBlock Text="{Binding Name}" Margin="0,0,0,0" FontSize="14" FontWeight="Bold"></TextBlock>-->
-                        </CheckBox>
-                    </StackPanel>
-                </DataTemplate>
-            </ComboBox.ItemTemplate>
-        </ComboBox>
+        <Grid Margin="-1,0,-10,-10" Background="Transparent" Height="591" VerticalAlignment="Top" HorizontalAlignment="Right" Width="290">
 
-        <!--2 Select Parameter Name-->
-        <TextBox Style="{DynamicResource MainTextBox}" Tag="2. Select Parameter Name" Name="TxtSearch" TextChanged="TxtSearch_TextChanged" Margin="11,0,0,0" HorizontalAlignment="Left" Width="259" Grid.Row="1" Height="27" VerticalAlignment="Top"/>
-        <ListBox  Name="ListParameter"  ItemsSource="{Binding RevitParameters}"  DisplayMemberPath="Name" HorizontalAlignment="Left" Width="259" Margin="11,27,0,0" Grid.Row="1" Height="97" VerticalAlignment="Top" SelectionChanged="ListParameter_SelectionChanged_1"/>
+            <!--Title Bar elements-->
+            <TextBlock x:Name="TextTitle" HorizontalAlignment="Left" Margin="30,15,0,0" TextWrapping="Wrap" Text="FINDER" Width="147" FontFamily="Roboto Bold" FontSize="20" Focusable="False" AllowDrop="False" Foreground="Black" Height="23" VerticalAlignment="Top"/>
+            <TextBlock x:Name="TextVersion" HorizontalAlignment="Left" Margin="31,38,0,0" TextWrapping="Wrap" Text="{Binding Path=ProjectVersion}" Width="39" FontFamily="Roboto light" FontSize="12" Focusable="False" AllowDrop="False" Foreground="LightGray"  Height="16" VerticalAlignment="Top"/>
+            <Button Style="{DynamicResource CloseButtonStyle}" Name="CloseButton" Foreground="Black" BorderThickness="0" Click="Close_Click" Background="Transparent" VerticalAlignment="Top" Height="39" FontSize="20" FontWeight="Bold" Margin="238,6,36,0">X</Button>
 
 
-        <!--3 Select Parameter Value-->
-        <TextBox Style="{DynamicResource MainTextBoxSearch}" Tag="3. Select Parameter Value" Name="txtFilter" Margin="11,144,10,0" TextWrapping="Wrap" Text="" Grid.Row="1" Height="29" VerticalAlignment="Top" />
 
-        <Button Background="Transparent" BorderBrush="Transparent" Name="FilterButton"  Click="FilterButton_Click" Margin="242,144,10,336" RenderTransformOrigin="-2.737,-1.017" Grid.Row="1" >
-            <ContentControl>
-                <Image Width="18" Height="21" Source="Search.png" Cursor="Hand" RenderTransformOrigin="0.5,0.571" />
-            </ContentControl>
-        </Button>
+            <!--1 Select Categories-->
+            <ComboBox Text="1. Select Category Name" ItemContainerStyle="{DynamicResource ComboItemStyle}" TextSearch.TextPath ="Industry"  Name="industry" SelectionChanged="LbActors_SelectionChanged" IsEditable="True" IsReadOnly="True" Margin="25,0,0,487" FontFamily="Roboto" FontSize="14px" VerticalAlignment="Bottom" Foreground="LightGray" Height="27" Padding="10 4 0 0" HorizontalAlignment="Left" Width="231" >
+                <ComboBox.ItemsSource>
+                    <CompositeCollection>
+                        <ComboBoxItem>
+                            <CheckBox x:Name="allIndustry" IsChecked="True" Click="AllIndustry_Click">All</CheckBox>
+                        </ComboBoxItem>
+                        <CollectionContainer Collection="{Binding Source={StaticResource FilterOptionsBridge}}" />
+                    </CompositeCollection>
+                </ComboBox.ItemsSource>
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <CheckBox Name="chkTask" Content="{Binding Name}" IsChecked="{Binding IsChecked}" Click="CheckBox_Click" TextBlock.FontSize="12" TextBlock.FontFamily="Segoe UI" Margin="11,2,0,0">
+                                <!--<TextBlock Text="{Binding Name}" Margin="0,0,0,0" FontSize="14" FontWeight="Bold"></TextBlock>-->
+                            </CheckBox>
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
 
-        <ListView Name="ElementListView" SelectionChanged="ElementListView_SelectionChanged" Margin="11,173,10,0" Grid.Row="1" Height="286" VerticalAlignment="Top">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn>
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock x:Name="Txt" Text="{Binding Path=Name}" Foreground="Black" />
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-                </GridView>
-            </ListView.View>
-        </ListView>
-
-        <TextBlock x:Name="Placeholder" IsHitTestVisible="False" TextWrapping="Wrap" Text="Placeholder Text" VerticalAlignment="Top" Margin="-233,20,299,0" Foreground="DarkGray" HorizontalAlignment="Right" Width="214">
-            <TextBlock.Style>
-                <Style TargetType="{x:Type TextBlock}">
-                    <Setter Property="Visibility" Value="Collapsed"/>
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding Text, ElementName=Textbox}" Value="">
-                            <Setter Property="Visibility" Value="Visible"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBlock.Style>
-        </TextBlock>
-
-        <TextBlock Name="TextBlockError" TextWrapping="Wrap" Text="" Margin="-75,497,257,-105" Grid.Row="1" />
-
-        <!--4 Isolate or select elements-->
-        <Button Style="{DynamicResource MainButtonStyle}" Content="HIGHLIGHT ALL" HorizontalAlignment="Left" Margin="11,471,0,0" Grid.Row="1" VerticalAlignment="Top" Width="115" Height="26"   Click="HighlightElements_click"/>
-        <Button Style="{DynamicResource MainButtonStyle}" Content="ISOLATE ALL" HorizontalAlignment="Left" Margin="155,471,0,0" Grid.Row="1" VerticalAlignment="Top" Width="115" Height="26" Click="IsolateElements_click"/>
+            <!--2 Select Parameter Name-->
+            <TextBox Style="{DynamicResource MainTextBox}" Tag="2. Select Parameter Name" Name="TxtSearch" TextChanged="TxtSearch_TextChanged" Margin="25,123,0,0" HorizontalAlignment="Left" Width="231" Height="27" VerticalAlignment="Top"/>
+            <ListBox  Name="ListParameter"  ItemsSource="{Binding RevitParameters}"  DisplayMemberPath="Name" HorizontalAlignment="Left" Width="231" Margin="25,150,0,0" Height="97" VerticalAlignment="Top" SelectionChanged="ListParameter_SelectionChanged_1">
+            </ListBox>
 
 
-        <!--<Button Style="{DynamicResource MainButtonStyle}" Content="Isolate" Margin="10,497,11,-68" Click="IsolateElements_click" Height="Auto" Grid.Row="1"/>-->
+            <!--3 Select Parameter Value-->
+            <TextBox Style="{DynamicResource MainTextBoxSearch}" Tag="3. Select Parameter Value" Name="txtFilter" Margin="25,266,0,0" TextWrapping="Wrap" Text="" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left" Width="231" />
 
-        <!--<ListBox Name="lbActors" ItemsSource="{Binding CategoryObjects}" Margin="11,-200,0,169" SelectionChanged="LbActors_SelectionChanged" HorizontalAlignment="Left" Width="259" >
-            <ListBox.ItemContainerStyle>
-                <Style TargetType="{x:Type ListBoxItem}">
-                    <Setter Property="Focusable" Value="False"/>
-                </Style>
-            </ListBox.ItemContainerStyle>
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <CheckBox Content="{Binding Name}" IsChecked="{Binding IsChecked}" Click="CheckBox_Click"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>-->
+            <Button Background="Transparent" BorderBrush="Transparent" Name="FilterButton"  Click="FilterButton_Click" Margin="231,266,0,296" RenderTransformOrigin="-2.737,-1.017" HorizontalAlignment="Left" Width="25" >
+                <ContentControl>
+                    <Image Width="18" Height="21" Source="Search.png" Cursor="Hand" RenderTransformOrigin="0.5,0.571" />
+                </ContentControl>
+            </Button>
 
-    </Grid>
+            <ListView Name="ElementListView" SelectionChanged="ElementListView_SelectionChanged" Margin="25,295,0,0" Height="218" VerticalAlignment="Top" HorizontalAlignment="Left" Width="231">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock x:Name="Txt" Text="{Binding Path=Name}" Foreground="Black" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+
+            <TextBlock x:Name="Placeholder" IsHitTestVisible="False" TextWrapping="Wrap" Text="Placeholder Text" VerticalAlignment="Top" Margin="-233,20,299,0" Foreground="DarkGray" HorizontalAlignment="Right" Width="214">
+                <TextBlock.Style>
+                    <Style TargetType="{x:Type TextBlock}">
+                        <Setter Property="Visibility" Value="Collapsed"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=Textbox}" Value="">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TextBlock.Style>
+            </TextBlock>
+
+            <TextBlock Name="TextBlockError" TextWrapping="Wrap" Text="" Margin="59,311,57,88" />
+
+            <!--4 Isolate or select elements-->
+            <Button Style="{DynamicResource MainButtonStyle}" Content="HIGHLIGHT" HorizontalAlignment="Left" Margin="25,534,0,0" VerticalAlignment="Top" Width="105" Height="26"   Click="HighlightElements_click" Background="#088FD0"/>
+            <Button Style="{DynamicResource MainButtonStyle}" Content="ISOLATE" HorizontalAlignment="Left" Margin="155,534,0,0" VerticalAlignment="Top" Width="99" Height="26" Click="IsolateElements_click" Background="#088FD0"/>
+
+
+        </Grid>
+    </Border>
 
 </Window>
 

@@ -1,10 +1,10 @@
 ﻿<ResourceDictionary  
-                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                     x:Class="EngFinder.UserControl"
-                     xmlns:system="clr-namespace:System;assembly=mscorlib"
-                     xmlns:local="clr-namespace:EngFinder"
-                        xmlns:sw="clr-namespace:WpfStyleableWindow.StyleableWindow;assembly=">
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    x:Class="EngFinder.UserControl"
+    xmlns:system="clr-namespace:System;assembly=mscorlib"
+    xmlns:local="clr-namespace:EngFinder"
+      xmlns:sw="clr-namespace:WpfStyleableWindow.StyleableWindow;assembly=">
 
     <!-- Colors of the bar-->
     <SolidColorBrush x:Key="WindowColor" Color="Red"/>
@@ -79,12 +79,6 @@
                         <ColumnDefinition Width="63"/>
                     </Grid.ColumnDefinitions>
 
-                    <!--Tittle bar-->
-                    <Border Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="{StaticResource WindowBackColor}" Margin="0,0,10,0">
-                        <Border.Effect>
-                            <DropShadowEffect BlurRadius="20" Color="Gray" Opacity="0.4" Direction="0" ShadowDepth="0"></DropShadowEffect>
-                        </Border.Effect>
-                    </Border>
 
                     <!--Location of title-->
                     <Label Grid.Column="1" DockPanel.Dock="Left" Content="{TemplateBinding Property=Title}" Padding="25,0,0,0"                                                                                  
@@ -100,24 +94,6 @@
                                     sw:ShowSystemMenuBehavior.TargetWindow="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"
                                     sw:ShowSystemMenuBehavior.RightButtonShow="true">
                     </Label>
-
-                    <!--Engworks Logo-->
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,0,0">
-                        <TextBlock>
-                            <Button Style="{StaticResource WindowButton}" Name="btnAnswer4" BorderThickness="0" MouseDown="EngworksLink" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <Image Height="25" Source="FinderLogo.png" Stretch="UniformToFill" MouseDown="AddInLink" Cursor="Hand" />
-                            </Button>
-                        </TextBlock>
-                    </StackPanel>
-
-                    <StackPanel Grid.Column="2" Orientation="Horizontal">
-                        <!--Customization of the minimize button-->
-                        <Button DockPanel.Dock="Right"  PreviewMouseDown="EngworksLink"  Style="{StaticResource WindowButton}"  CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}" IsCancel="True">?</Button>
-                        <!--Customization of the maximize button-->
-                        <!-- To allow maximize copy this command inside declaration Command="{StaticResource MaximizeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"-->
-                        <!--Customization of the maximize button-->
-                        <Button DockPanel.Dock="Right"  Style="{StaticResource WindowButton}" Command="{StaticResource CloseCommand}" CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}">X</Button>
-                    </StackPanel>
                 </Grid>
 
                 <Border Grid.Row="1" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="0 0 0 0" Background="{TemplateBinding Background}">
@@ -129,12 +105,6 @@
                     </Grid>
                 </Border>
 
-                <!--Tittle bar shadow effect-->
-                <Border BorderThickness="0,0,0,3" BorderBrush="{StaticResource WindowBackColor}" Margin="10,0,10,0" >
-                    <Border.Effect>
-                        <DropShadowEffect Opacity="0.5" Direction="270" Color="Gray" ShadowDepth="2" BlurRadius="8"></DropShadowEffect>
-                    </Border.Effect>
-                </Border>
 
             </Grid>
             <Thumb x:Name="ThumbTop" Height="6" Margin="14,0" VerticalAlignment="Top" Cursor="SizeNS"  Opacity="0" sw:WindowResizeBehavior.TopResize="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Window}}}"/>
@@ -874,7 +844,6 @@
                                 <Setter.Value>
                                     <SolidColorBrush Color="Black" />
                                 </Setter.Value>
-
                             </Setter>
                         </Trigger>
                         <Trigger Property="IsGrouping"
@@ -1256,5 +1225,39 @@
         </Setter>
     </Style>
 
+    <!--MainButtons Custom template-->
+    <ControlTemplate  x:Key="CloseButtonStyleTemplate" TargetType="Button">
+        <Border x:Name="border" 
+                    CornerRadius="3" 
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+            <ContentPresenter x:Name="contentPresenter" ContentTemplate="{TemplateBinding ContentTemplate}" Content="{TemplateBinding Content}" ContentStringFormat="{TemplateBinding ContentStringFormat}" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Border>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsDefaulted" Value="True">
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Opacity"  TargetName="border" Value="0.5"/>
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Opacity"  TargetName="border" Value="0.2"/>
 
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+
+    <!--Customization of MainButtons template-->
+    <Style x:Key="CloseButtonStyle" TargetType="{x:Type Button}">
+        <Setter Property="Template" Value="{StaticResource CloseButtonStyleTemplate}"/>
+        <Setter Property="FontFamily" Value="Roboto"/>
+        <Setter Property="FontSize" Value="12px"/>
+
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Background" Value="{StaticResource WindowButtonColor}"/>
+        <Setter Property="ToolTipService.ShowDuration" Value="2000"/>
+        <Setter Property="ToolTipService.InitialShowDelay" Value="1500"/>
+        <Setter Property="Height"  Value="38"/>
+    </Style>
 </ResourceDictionary>

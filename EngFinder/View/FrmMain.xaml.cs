@@ -41,6 +41,7 @@ namespace EngFinder.View
         {
 
             p_commanddata = cmddata_p;
+           
 
             InitializeComponent();
 
@@ -384,7 +385,23 @@ namespace EngFinder.View
                 CategoryObjects.Add(vRecord);
             }
         }
+
+        private void Close_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        public string projectVersion = CommonAssemblyInfo.Number;
+        public string ProjectVersion
+        {
+            get { return projectVersion; }
+            set { projectVersion = value; }
+        }
+
     }
+
+    
+
 
     public class CheckedListItem
     {

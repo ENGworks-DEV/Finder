@@ -25,7 +25,8 @@
 
     </Window.Resources>
 
-    <Border Background="White" BorderBrush="Transparent" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5" Margin="10,-13,9,10">
+
+    <Border Background="White" BorderBrush="Transparent" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5" Margin="10,-13,9,10" MouseDown="Border_MouseDown" >
         <Border.Effect>
             <DropShadowEffect BlurRadius="20" Color="Gray" Opacity="0.3" ShadowDepth="0" Direction="0"></DropShadowEffect>
         </Border.Effect>
@@ -34,11 +35,9 @@
         <Grid Margin="-1,0,-10,-10" Background="Transparent" Height="591" VerticalAlignment="Top" HorizontalAlignment="Right" Width="290">
 
             <!--Title Bar elements-->
-            <TextBlock x:Name="TextTitle" HorizontalAlignment="Left" Margin="30,15,0,0" TextWrapping="Wrap" Text="FINDER" Width="147" FontFamily="Roboto Bold" FontSize="20" Focusable="False" AllowDrop="False" Foreground="Black" Height="23" VerticalAlignment="Top"/>
             <TextBlock x:Name="TextVersion" HorizontalAlignment="Left" Margin="31,38,0,0" TextWrapping="Wrap" Text="{Binding Path=ProjectVersion}" Width="39" FontFamily="Roboto light" FontSize="12" Focusable="False" AllowDrop="False" Foreground="LightGray"  Height="16" VerticalAlignment="Top"/>
             <Button Style="{DynamicResource CloseButtonStyle}" Name="CloseButton" Foreground="Black" BorderThickness="0" Click="Close_Click" Background="Transparent" VerticalAlignment="Top" Height="39" FontSize="20" FontWeight="Bold" Margin="238,6,36,0">X</Button>
-
-
+            <Button Style="{DynamicResource CloseButtonStyle}" Name="TtitleButton" Foreground="Black" BorderThickness="0" Click="Title_Link" Background="Transparent" VerticalAlignment="Top" Height="39" FontSize="20" FontWeight="Bold" Margin="26,7,189,0">FINDER</Button>
 
             <!--1 Select Categories-->
             <ComboBox Text="1. Select Category Name" ItemContainerStyle="{DynamicResource ComboItemStyle}" TextSearch.TextPath ="Industry"  Name="industry" SelectionChanged="LbActors_SelectionChanged" IsEditable="True" IsReadOnly="True" Margin="25,0,0,487" FontFamily="Roboto" FontSize="14px" VerticalAlignment="Bottom" Foreground="LightGray" Height="27" Padding="10 4 0 0" HorizontalAlignment="Left" Width="231" >

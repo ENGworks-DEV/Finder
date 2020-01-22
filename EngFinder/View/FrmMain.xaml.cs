@@ -36,7 +36,7 @@ namespace EngFinder.View
         public ObservableCollection<CheckedListItem> CategoryObjects { get; set; }
         public ObservableCollection<Element> ElementList { get; set; }
 
-      
+
         public FrmMain(Document IntDocument, ExternalCommandData cmddata_p)
         {
 
@@ -386,6 +386,7 @@ namespace EngFinder.View
             }
         }
 
+
         private void Close_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
@@ -398,6 +399,15 @@ namespace EngFinder.View
             set { projectVersion = value; }
         }
 
+        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
+
+        private void Title_Link(object sender, RoutedEventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://engworks.com/values-finder/");
+        }
     }
 
     

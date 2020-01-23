@@ -52,6 +52,7 @@ namespace EngFinder.View
             _Doc = IntDocument;
             CategoryInitValue();
             this.Topmost = true;
+           
 
         }
         private void ListParameter_Scroll(object sender, System.Windows.Controls.Primitives.ScrollEventArgs e)

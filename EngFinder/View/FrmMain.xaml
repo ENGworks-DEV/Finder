@@ -5,11 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EngFinder.View"
              mc:Ignorable="d" 
-             Title="FINDER" Loaded="Window_Loaded" Width="301" MaxHeight="650" MaxWidth="150"  MinHeight="550" MinWidth="300" Height="609.5" WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize" 
+             Title="FINDER" Loaded="Window_Loaded" Width="301" MaxHeight="609.5" MaxWidth="150"  MinHeight="609.5" MinWidth="300" Height="609.5" WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
          
-        Style="{DynamicResource CustomWindowStyle}"
-        WindowStyle="None"  >
+        Style="{DynamicResource CustomWindowStyle}">
+    
     <Window.InputBindings>
         <KeyBinding Key="A" Modifiers="Control" Command="SelectAll" />
     </Window.InputBindings>
@@ -26,7 +27,7 @@
     </Window.Resources>
 
 
-    <Border Background="White" BorderBrush="Transparent" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5" Margin="10,-13,9,10" MouseDown="Border_MouseDown" >
+    <Border Background="White" BorderBrush="Transparent" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5" Margin="10,-13,9,10" MouseDown="Border_MouseDown">
         <Border.Effect>
             <DropShadowEffect BlurRadius="20" Color="Gray" Opacity="0.3" ShadowDepth="0" Direction="0"></DropShadowEffect>
         </Border.Effect>
@@ -67,7 +68,7 @@
 
 
             <!--3 Select Parameter Value-->
-            <TextBox Style="{DynamicResource MainTextBoxSearch}" Tag="3. Select Parameter Value" Name="txtFilter" Margin="25,266,0,0" TextWrapping="Wrap" Text="" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left" Width="231" />
+            <TextBox Style="{DynamicResource MainTextBoxSearch}" Tag="3. Fill Parameter Value" Name="txtFilter" Margin="25,266,0,0" TextWrapping="Wrap" Text="" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left" Width="231" />
 
             <Button Background="Transparent" BorderBrush="Transparent" Name="FilterButton"  Click="FilterButton_Click" Margin="231,266,0,296" RenderTransformOrigin="-2.737,-1.017" HorizontalAlignment="Left" Width="25" >
                 <ContentControl>

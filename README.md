@@ -7,6 +7,7 @@ This is a Revit add-in that finds elements with specific parameters value
 
 ## Revit tested versions
 
+* Revit 2020
 * Revit 2019
 * Revit 2018
 

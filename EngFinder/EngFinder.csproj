@@ -39,12 +39,6 @@
     <StartProgram>$(ProgramW6432)\Autodesk\Revit 2018\Revit.exe</StartProgram>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MaterialDesignColors, Version=1.1.2.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignColors.1.1.2\lib\net45\MaterialDesignColors.dll</HintPath>
-    </Reference>
-    <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.1.1345, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignThemes.2.5.1\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -69,47 +63,40 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Command.cs" />
     <Compile Include="Core\LibElement.cs" />
     <Compile Include="Core\LibNumeric.cs" />
     <Compile Include="Core\LibParameters.cs" />
-    <Compile Include="ExternalApp.cs" />
     <Compile Include="Model\RevitParameter.cs" />
     <Compile Include="Model\RevitParameterInfocs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StyleableWindow\ControlDoubleClickBehavior.cs" />
-    <Compile Include="StyleableWindow\ShowSystemMenuBehavior.cs" />
-    <Compile Include="StyleableWindow\SystemMenuManager.cs" />
-    <Compile Include="StyleableWindow\WindowCloseCommand.cs" />
-    <Compile Include="StyleableWindow\WindowDragBehavior.cs" />
-    <Compile Include="StyleableWindow\WindowMaximizeCommand.cs" />
-    <Compile Include="StyleableWindow\WindowMinimizeCommand.cs" />
-    <Compile Include="StyleableWindow\WindowResizeBehavior.cs" />
+    <Compile Include="Forms\StyleableWindow\ControlDoubleClickBehavior.cs" />
+    <Compile Include="Forms\StyleableWindow\ShowSystemMenuBehavior.cs" />
+    <Compile Include="Forms\StyleableWindow\SystemMenuManager.cs" />
+    <Compile Include="Forms\StyleableWindow\WindowCloseCommand.cs" />
+    <Compile Include="Forms\StyleableWindow\WindowDragBehavior.cs" />
+    <Compile Include="Forms\StyleableWindow\WindowMaximizeCommand.cs" />
+    <Compile Include="Forms\StyleableWindow\WindowMinimizeCommand.cs" />
+    <Compile Include="Forms\StyleableWindow\WindowResizeBehavior.cs" />
     <Compile Include="Utils\CommonAssemblyInfo.cs" />
     <Compile Include="Utils\UnitsAbbrev.cs" />
-    <Compile Include="View\FrmMain.xaml.cs">
+    <Compile Include="Forms\FrmMain.xaml.cs">
       <DependentUpon>FrmMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\UserControl.xaml.cs">
-      <DependentUpon>UserControl.xaml</DependentUpon>
+    <Compile Include="Forms\Resources.xaml.cs">
+      <DependentUpon>Resources.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="EngFinder.addin" />
-    <Resource Include="View\FinderIcon.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="View\Search.png" />
-    <EmbeddedResource Include="View\FinderLogo.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    <Resource Include="Resources\Search.png" />
+    <EmbeddedResource Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="View\FrmMain.xaml">
+    <Page Include="Forms\FrmMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\UserControl.xaml">
+    <Page Include="Forms\Resources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

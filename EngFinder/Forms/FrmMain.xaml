@@ -20,7 +20,7 @@
         <ResourceDictionary>
 
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="UserControl.xaml" />
+                <ResourceDictionary Source="Resources.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
 
@@ -72,7 +72,7 @@
 
             <Button Background="Transparent" BorderBrush="Transparent" Name="FilterButton"  Click="FilterButton_Click" Margin="231,266,0,296" RenderTransformOrigin="-2.737,-1.017" HorizontalAlignment="Left" Width="25" >
                 <ContentControl>
-                    <Image Width="18" Height="21" Source="Search.png" Cursor="Hand" RenderTransformOrigin="0.5,0.571" />
+                    <Image Width="18" Height="21" Source="/EngFinder;component/Resources/Search.png" Cursor="Hand" RenderTransformOrigin="0.5,0.571" />
                 </ContentControl>
             </Button>
 

@@ -3,7 +3,7 @@
   <AddIn Type="Application">
     <Name>ENGFinder</Name>
     <Assembly>EngFinder.dll</Assembly>
-    <FullClassName>ExternalApp.CsAddpanel</FullClassName>
+    <FullClassName>EngFinder.App</FullClassName>
     <ClientId>3c13b613-6ec9-4c78-9ff3-cecfb9e52f1b</ClientId>
     <VendorId>ENGW</VendorId>
     <VendorDescription>EngWorks</VendorDescription>

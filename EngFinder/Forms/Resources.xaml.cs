@@ -18,7 +18,7 @@ namespace EngFinder
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class UserControl : ResourceDictionary
+    public partial class Resources : ResourceDictionary
     {
         private void EngworksLink(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {

@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EngFinder.View
+namespace EngFinder
 {
     public class CommonAssemblyInfo
-    {
-        private static string number = "1.1.0.0";
+{
+    private static string number = "1.1.0.0";
 
-        public static string Number
-        {
-            get { return number; }
-            set { number = value; }
-        }
+    public static string Number
+    {
+        get { return number; }
+        set { number = value; }
     }
+}
 }

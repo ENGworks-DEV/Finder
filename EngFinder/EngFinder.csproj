@@ -66,23 +66,23 @@
     <Compile Include="Core\LibElement.cs" />
     <Compile Include="Core\LibNumeric.cs" />
     <Compile Include="Core\LibParameters.cs" />
+    <Compile Include="View\WrngMain.xaml.cs">
+      <DependentUpon>WrngMain.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Model\RevitParameter.cs" />
     <Compile Include="Model\RevitParameterInfocs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Forms\StyleableWindow\ControlDoubleClickBehavior.cs" />
-    <Compile Include="Forms\StyleableWindow\ShowSystemMenuBehavior.cs" />
-    <Compile Include="Forms\StyleableWindow\SystemMenuManager.cs" />
-    <Compile Include="Forms\StyleableWindow\WindowCloseCommand.cs" />
-    <Compile Include="Forms\StyleableWindow\WindowDragBehavior.cs" />
-    <Compile Include="Forms\StyleableWindow\WindowMaximizeCommand.cs" />
-    <Compile Include="Forms\StyleableWindow\WindowMinimizeCommand.cs" />
-    <Compile Include="Forms\StyleableWindow\WindowResizeBehavior.cs" />
+    <Compile Include="View\StyleableWindow\ControlDoubleClickBehavior.cs" />
+    <Compile Include="View\StyleableWindow\ShowSystemMenuBehavior.cs" />
+    <Compile Include="View\StyleableWindow\SystemMenuManager.cs" />
+    <Compile Include="View\StyleableWindow\WindowDragBehavior.cs" />
+    <Compile Include="View\StyleableWindow\WindowResizeBehavior.cs" />
     <Compile Include="Utils\CommonAssemblyInfo.cs" />
     <Compile Include="Utils\UnitsAbbrev.cs" />
-    <Compile Include="Forms\FrmMain.xaml.cs">
+    <Compile Include="View\FrmMain.xaml.cs">
       <DependentUpon>FrmMain.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Forms\Resources.xaml.cs">
+    <Compile Include="View\Resources.xaml.cs">
       <DependentUpon>Resources.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -92,23 +92,24 @@
     <EmbeddedResource Include="Resources\Icon.png" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Forms\FrmMain.xaml">
+    <Page Include="View\WrngMain.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="View\FrmMain.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Forms\Resources.xaml">
+    <Page Include="View\Resources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>if $(ConfigurationName) == Debug if exist "$(AppData)\Autodesk\REVIT\Addins\2018" copy "$(ProjectDir)*.addin" "$(AppData)\Autodesk\REVIT\Addins\2018"
 if $(ConfigurationName) == Debug if exist "$(AppData)\Autodesk\REVIT\Addins\2018" copy "$(ProjectDir)$(OutputPath)*.dll" "$(AppData)\Autodesk\REVIT\Addins\2018"
-if $(ConfigurationName) == Release "C:\Program Files (x86)\Windows Kits\10\App Certification Kit\signtool.exe" sign /f  "$(ProjectDir)\Engworks.pfx" /p Engw123. /t http://timestamp.verisign.com/scripts/timstamp.dll "$(ProjectDir)$(OutputPath)*.dll"
+if $(ConfigurationName) == Release if exist "$(ProjectDir)\Engworks.pfx" "C:\Program Files (x86)\Windows Kits\10\App Certification Kit\signtool.exe" sign /f  "$(ProjectDir)\Engworks.pfx" /p Engw123. /t http://timestamp.verisign.com/scripts/timstamp.dll "$(ProjectDir)$(OutputPath)*.dll"
 if $(ConfigurationName) == Release copy "$(ProjectDir)*.addin" "$(ProjectDir)$(OutputPath)"
 if $(ConfigurationName) == Release (powershell Compress-Archive -Path '$(ProjectDir)$(OutputPath)*.dll', '$(ProjectDir)$(OutputPath)*.addin' -DestinationPath '$(ProjectDir)$(OutputPath)$(ProjectName)' -Force)</PostBuildEvent>
   </PropertyGroup>
@@ -122,5 +123,8 @@ if $(ConfigurationName) == Release (powershell Compress-Archive -Path '$(Project
   <Target Name="AfterClean">
     <Delete Files="$(AppData)\Autodesk\REVIT\Addins\2018\EngFinder.addin" />
     <Delete Files="$(AppData)\Autodesk\REVIT\Addins\2018\EngFinder.dll" />
+  </Target>
+  <Target Name="AfterCompile">
+    <Exec Command="echo &quot;&quot;" />
   </Target>
 </Project>

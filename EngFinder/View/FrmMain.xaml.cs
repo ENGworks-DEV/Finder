@@ -145,10 +145,11 @@ namespace EngFinder.View
                     .Contains( TxtSearch.Text.ToLower())));
 
                 ListParameterRefresh(vRevitParameters);
+
+                
             }
             catch (Exception vEx)
             {
-                TextBlockError.Text = vEx.Message;
             }
 
         }
@@ -192,7 +193,6 @@ namespace EngFinder.View
             }
             catch (Exception vEx)
             {
-                TextBlockError.Text = vEx.Message;
             }
         }
 
@@ -202,16 +202,31 @@ namespace EngFinder.View
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
             if (ListParameter.SelectedItem != null)
+                
                 try
                 {
                     FilterParameter(txtFilter.Text);
+                    
+
                 }
                 catch (Exception vEx)
                 {
-                    TextBlockError.Text = vEx.Message;
+                    
                 }
             else
-                TaskDialog.Show("Alert", "You have not selected any parameter");
+            { 
+                WrngMain vInsWrngMain = new WrngMain("No parameter selected");
+                vInsWrngMain.Show();
+            }
+
+            if (ElementListView.Items.Count == 0)
+            {
+                TextBlockError.Visibility = System.Windows.Visibility.Visible;
+            }
+            else
+            {
+                TextBlockError.Visibility = System.Windows.Visibility.Hidden;
+            }
         }
 
         private void ElementListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -232,7 +247,6 @@ namespace EngFinder.View
             }
             catch (Exception vEx)
             {
-                TextBlockError.Text = vEx.Message;
             }
         }
 
@@ -245,7 +259,6 @@ namespace EngFinder.View
             }
             catch (Exception vEx)
             {
-                TextBlockError.Text = vEx.Message;
             }
 
         }
@@ -294,9 +307,13 @@ namespace EngFinder.View
                     }
                     catch (Exception vEx)
                     {
-                        TextBlockError.Text = vEx.Message;
                     } 
                 }
+            else
+            {
+                WrngMain vInsWrngMain = new WrngMain("No elements found");
+                vInsWrngMain.Show();
+            }
 
         }
 
@@ -355,11 +372,15 @@ namespace EngFinder.View
                 }
                     catch (Exception vEx)
                     {
-                        TextBlockError.Text = vEx.Message;
                     }
                     uiDoc.RefreshActiveView();
-
             }
+            else
+            {
+                WrngMain vInsWrngMain = new WrngMain("No elements found");
+                vInsWrngMain.Show();
+            }
+
 
             }
 
@@ -409,6 +430,7 @@ namespace EngFinder.View
         {
             System.Diagnostics.Process.Start("https://engworks.com/values-finder/");
         }
+
     }
 
     

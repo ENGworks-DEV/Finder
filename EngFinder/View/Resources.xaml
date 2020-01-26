@@ -23,11 +23,6 @@
 
 
 
-    <!--The window template and it's components -->
-    <sw:WindowMinimizeCommand x:Key="MinimizeCommand"></sw:WindowMinimizeCommand>
-    <sw:WindowMaximizeCommand x:Key="MaximizeCommand"></sw:WindowMaximizeCommand>
-    <sw:WindowCloseCommand x:Key="CloseCommand"></sw:WindowCloseCommand>
-
     <!--Style for the close, maximize and minimize buttons-->
     <Style TargetType="{x:Type Button}" x:Key="WindowButton">
         <Setter Property="Height" Value="25"/>

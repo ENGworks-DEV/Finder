@@ -10,7 +10,7 @@
         ResizeMode="NoResize"
          
         Style="{DynamicResource CustomWindowStyle}">
-    
+
     <Window.InputBindings>
         <KeyBinding Key="A" Modifiers="Control" Command="SelectAll" />
     </Window.InputBindings>
@@ -82,7 +82,7 @@
                         <GridViewColumn>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBlock x:Name="Txt" Text="{Binding Path=Name}" Foreground="Black" />
+                                    <TextBlock x:Name="Txt" Text="{Binding Path=Name}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -103,7 +103,8 @@
                 </TextBlock.Style>
             </TextBlock>
 
-            <TextBlock Name="TextBlockError" TextWrapping="Wrap" Text="" Margin="59,311,57,88" />
+            <TextBlock x:Name="TextBlockError" HorizontalAlignment="Left" Margin="80,390,0,0" TextWrapping="Wrap" Text="No Elements Found" Width="127" FontFamily="Roboto light" FontSize="14" Focusable="False" AllowDrop="False" Foreground="LightGray"  Height="18" VerticalAlignment="Top" Visibility="Visible"/>
+
 
             <!--4 Isolate or select elements-->
             <Button Style="{DynamicResource MainButtonStyle}" Content="HIGHLIGHT" HorizontalAlignment="Left" Margin="25,534,0,0" VerticalAlignment="Top" Width="105" Height="26"   Click="HighlightElements_click" Background="#088FD0"/>

@@ -36,9 +36,12 @@ namespace EngFinder.Core {
                             vName = _Doc.GetElement(vElementId).Name.Trim();
                         }
 
+        
+
                         vRecord.Id = vElementId.IntegerValue;
                         vRecord.ElementId = vElementId;
                         vRecord.Name = vName;
+                        //vRecord.Definition = vElementId;
 
                         vResult.Add(vRecord);
 

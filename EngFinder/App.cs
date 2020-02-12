@@ -39,14 +39,14 @@ namespace EngFinder
 
             // Create a ribbon panel
             RibbonPanel m_projectPanel = application.CreateRibbonPanel(
-                NameSpaceNm);
+                "Value Finder");
 
             //Execute File location
             string fileLctn = NameSpaceNm + ".MainCommand";
 
             //Button
             PushButton pushButton = m_projectPanel.AddItem(new PushButtonData(
-                    NameSpaceNm, NameSpaceNm, ExecutingAssemblyPath,
+                    "Value Finder", "Value Finder", ExecutingAssemblyPath,
                     fileLctn)) as PushButton;
 
             //Add Help ToolTip 

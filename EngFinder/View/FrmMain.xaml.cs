@@ -119,7 +119,21 @@ namespace EngFinder.View
             vBuiltInCats.Add(BuiltInCategory.OST_FabricationDuctworkInsulation);
             vBuiltInCats.Add(BuiltInCategory.OST_FabricationDuctworkRise);
             vBuiltInCats.Add(BuiltInCategory.OST_FabricationDuctwork);
-
+            vBuiltInCats.Add(BuiltInCategory.OST_DuctTerminal);
+            vBuiltInCats.Add(BuiltInCategory.OST_FlexDuctCurves);
+            vBuiltInCats.Add(BuiltInCategory.OST_MechanicalEquipment);
+            vBuiltInCats.Add(BuiltInCategory.OST_FlexPipeCurves);
+            vBuiltInCats.Add(BuiltInCategory.OST_PlumbingFixtures);
+            vBuiltInCats.Add(BuiltInCategory.OST_Sprinklers);
+            vBuiltInCats.Add(BuiltInCategory.OST_ElectricalEquipment);
+            vBuiltInCats.Add(BuiltInCategory.OST_CommunicationDevices);
+            vBuiltInCats.Add(BuiltInCategory.OST_FireAlarmDevices);
+            vBuiltInCats.Add(BuiltInCategory.OST_LightingDevices);
+            vBuiltInCats.Add(BuiltInCategory.OST_LightingFixtures);
+            vBuiltInCats.Add(BuiltInCategory.OST_NurseCallDevices);
+            vBuiltInCats.Add(BuiltInCategory.OST_SecurityDevices);
+            vBuiltInCats.Add(BuiltInCategory.OST_TelephoneDevices);
+            vBuiltInCats.Add(BuiltInCategory.OST_Wire);
 
             _Category = new List<Category>();
             foreach (var vData in vBuiltInCats)

@@ -21,16 +21,20 @@ namespace EngFinder.Core {
             bool vIsParse = false;
             double vData = 0;
             string vValueToString = valValue;
-             if (IsParsed(valValue, out vData)) {
+
+
+            if (!StringClasses.lstNames().Contains(valRevitParameter.Name))
+            { 
+                if (IsParsed(valValue, out vData)) {
                 valValue = vData.ToString();
                 vIsParse = true;
+                }
             }
 
-             
-            
+
 
             LibNumeric insLibNumeric = new LibNumeric();
-            if (insLibNumeric.IsDouble(valValue )) {
+            if (insLibNumeric.IsDouble(valValue ) && !StringClasses.lstNames().Contains(valRevitParameter.Name)) {
                 vResult = GetElementValueDouble(valRevitParameter, valCategoryElementId, valValue);
                 if (vResult.Count == 0) {
                     if (vIsParse) {
@@ -39,7 +43,8 @@ namespace EngFinder.Core {
                         if (vResult.Count == 0) {
                             vResult = GetElementValueDoubleGreaterOrEqual(valRevitParameter, valCategoryElementId, valValue, vValueToString);
                         }
-                        if(vResult.Count == 0)
+
+                        if (vResult.Count == 0)
                         {
                             vResult = GetElementValueIntOrstring(valRevitParameter, valCategoryElementId, valValue);
 

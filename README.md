@@ -1,4 +1,4 @@
-# Finder
+![](https://github.com/ENGworks-DEV/Finder/blob/master/EngFinder/Resources/LogoAndName-01.png)
 
 This is a Revit add-in that finds elements with specific parameters value
 

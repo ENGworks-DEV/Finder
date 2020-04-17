@@ -2,9 +2,6 @@
 
 This is a Revit add-in that finds elements with specific parameters value
 
-## Examples
-
-
 ## Revit tested versions
 
 * Revit 2020

@@ -1,4 +1,6 @@
-<img src="https://github.com/ENGworks-DEV/Finder/blob/master/EngFinder/Resources/LogoAndName-01.jpg" width="300" height="140">
+# Finder
+
+<img src="https://github.com/ENGworks-DEV/Finder/blob/master/EngFinder/Resources/LogoAndName-01.jpg" width="280" height="120">
 
 This is a Revit add-in that finds elements with specific parameters value
 

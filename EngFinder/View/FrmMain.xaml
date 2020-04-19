@@ -5,7 +5,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EngFinder.View"
              mc:Ignorable="d" 
-             Title="FINDER" Loaded="Window_Loaded" Width="301" MaxHeight="609.5" MaxWidth="150"  MinHeight="609.5" MinWidth="300" Height="609.5" WindowStartupLocation="CenterScreen"
+             Title="FINDER" 
+             Loaded="Window_Loaded" 
+             Width="301" 
+             MaxHeight="609.5" 
+             MaxWidth="150"  
+             MinHeight="609.5" 
+             MinWidth="300" 
+             Height="609.5" 
+             WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
         ResizeMode="NoResize"
          
@@ -27,25 +35,89 @@
     </Window.Resources>
 
 
-    <Border Background="White" BorderBrush="Transparent" BorderThickness="1,1,1,1" CornerRadius="5,5,5,5" Margin="10,-13,9,10" MouseDown="Border_MouseDown">
+    <Border Background="White" 
+            BorderBrush="Transparent" 
+            BorderThickness="1,1,1,1" 
+            CornerRadius="5,5,5,5" 
+            Margin="10,-13,9,10" 
+            MouseDown="Border_MouseDown">
         <Border.Effect>
-            <DropShadowEffect BlurRadius="20" Color="Gray" Opacity="0.3" ShadowDepth="0" Direction="0"></DropShadowEffect>
+            <DropShadowEffect 
+                BlurRadius="20" 
+                Color="Gray" 
+                Opacity="0.3" 
+                ShadowDepth="0" 
+                Direction="0"></DropShadowEffect>
         </Border.Effect>
 
 
-        <Grid Margin="-1,0,-10,-10" Background="Transparent" Height="591" VerticalAlignment="Top" HorizontalAlignment="Right" Width="290">
+        <Grid Margin="-1,0,-10,-10" 
+              Background="Transparent" 
+              Height="591" 
+              VerticalAlignment="Top" 
+              HorizontalAlignment="Right" 
+              Width="290">
 
             <!--Title Bar elements-->
-            <TextBlock x:Name="TextVersion" HorizontalAlignment="Left" Margin="31,38,0,0" TextWrapping="Wrap" Text="{Binding Path=ProjectVersion}" Width="39" FontFamily="Roboto light" FontSize="12" Focusable="False" AllowDrop="False" Foreground="LightGray"  Height="16" VerticalAlignment="Top"/>
-            <Button Style="{DynamicResource CloseButtonStyle}" Name="CloseButton" Foreground="Black" BorderThickness="0" Click="Close_Click" Background="Transparent" VerticalAlignment="Top" Height="39" FontSize="20" FontWeight="Bold" Margin="238,6,36,0">X</Button>
-            <Button Style="{DynamicResource CloseButtonStyle}" Name="TtitleButton" Foreground="Black" BorderThickness="0" Click="Title_Link" Background="Transparent" VerticalAlignment="Top" Height="39" FontSize="20" FontWeight="Bold" Margin="26,7,189,0">FINDER</Button>
+            <TextBlock x:Name="TextVersion" 
+                       HorizontalAlignment="Left" 
+                       Margin="31,38,0,0" 
+                       TextWrapping="Wrap" 
+                       Text="{Binding Path=ProjectVersion}" 
+                       Width="39" 
+                       FontFamily="Roboto light" 
+                       FontSize="12" 
+                       Focusable="False" 
+                       AllowDrop="False" 
+                       Foreground="LightGray"  
+                       Height="16" 
+                       VerticalAlignment="Top"/>
+            <Button Style="{DynamicResource CloseButtonStyle}" 
+                       Name="CloseButton" 
+                       Foreground="Black" 
+                       BorderThickness="0" 
+                       Click="Close_Click" 
+                       Background="Transparent" 
+                       VerticalAlignment="Top" 
+                       Height="39" 
+                       FontSize="20" 
+                       FontWeight="Bold" 
+                       Margin="238,6,36,0">X</Button>
+            <Button Style="{DynamicResource CloseButtonStyle}" 
+                       Name="TtitleButton" 
+                       Foreground="Black" 
+                       BorderThickness="0" 
+                       Click="Title_Link" 
+                       Background="Transparent" 
+                       VerticalAlignment="Top" 
+                       Height="39" 
+                       FontSize="20" 
+                       FontWeight="Bold" 
+                       Margin="26,7,189,0">FINDER</Button>
 
             <!--1 Select Categories-->
-            <ComboBox Text="1. Select Category Name" ItemContainerStyle="{DynamicResource ComboItemStyle}" TextSearch.TextPath ="Industry"  Name="industry" SelectionChanged="LbActors_SelectionChanged" IsEditable="True" IsReadOnly="True" Margin="25,0,0,487" FontFamily="Roboto" FontSize="14px" VerticalAlignment="Bottom" Foreground="LightGray" Height="27" Padding="10 4 0 0" HorizontalAlignment="Left" Width="231" >
+            <ComboBox Text="1. Select Category Name" 
+                      ItemContainerStyle="{DynamicResource ComboItemStyle}" 
+                      TextSearch.TextPath ="Industry"  
+                      Name="industry" 
+                      SelectionChanged="LbActors_SelectionChanged" 
+                      IsEditable="True" 
+                      IsReadOnly="True" 
+                      Margin="25,0,0,487" 
+                      FontFamily="Roboto" 
+                      FontSize="14px" 
+                      VerticalAlignment="Bottom" 
+                      Foreground="LightGray" 
+                      Height="27" 
+                      Padding="10 4 0 0" 
+                      HorizontalAlignment="Left" 
+                      Width="231" >
                 <ComboBox.ItemsSource>
                     <CompositeCollection>
                         <ComboBoxItem>
-                            <CheckBox x:Name="allIndustry" IsChecked="True" Click="AllIndustry_Click">All</CheckBox>
+                            <CheckBox x:Name="allIndustry" 
+                                      IsChecked="True" 
+                                      Click="AllIndustry_Click">All</CheckBox>
                         </ComboBoxItem>
                         <CollectionContainer Collection="{Binding Source={StaticResource FilterOptionsBridge}}" />
                     </CompositeCollection>
@@ -53,8 +125,13 @@
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal">
-                            <CheckBox Name="chkTask" Content="{Binding Name}" IsChecked="{Binding IsChecked}" Click="CheckBox_Click" TextBlock.FontSize="12" TextBlock.FontFamily="Segoe UI" Margin="11,2,0,0">
-                                <!--<TextBlock Text="{Binding Name}" Margin="0,0,0,0" FontSize="14" FontWeight="Bold"></TextBlock>-->
+                            <CheckBox Name="chkTask" 
+                                      Content="{Binding Name}" 
+                                      IsChecked="{Binding IsChecked}" 
+                                      Click="CheckBox_Click" 
+                                      TextBlock.FontSize="12" 
+                                      TextBlock.FontFamily="Segoe UI" 
+                                      Margin="11,2,0,0">
                             </CheckBox>
                         </StackPanel>
                     </DataTemplate>
@@ -62,21 +139,63 @@
             </ComboBox>
 
             <!--2 Select Parameter Name-->
-            <TextBox Style="{DynamicResource MainTextBox}" Tag="2. Select Parameter Name" Name="TxtSearch" TextChanged="TxtSearch_TextChanged" Margin="25,123,0,0" HorizontalAlignment="Left" Width="231" Height="27" VerticalAlignment="Top"/>
-            <ListBox  Name="ListParameter"  ItemsSource="{Binding RevitParameters}"  DisplayMemberPath="Name" HorizontalAlignment="Left" Width="231" Margin="25,150,0,0" Height="97" VerticalAlignment="Top" SelectionChanged="ListParameter_SelectionChanged_1">
+            <TextBox Style="{DynamicResource MainTextBox}" 
+                     Tag="2. Select Parameter Name" 
+                     Name="TxtSearch" 
+                     TextChanged="TxtSearch_TextChanged" 
+                     Margin="25,123,0,0" 
+                     HorizontalAlignment="Left" 
+                     Width="231" 
+                     Height="27" 
+                     VerticalAlignment="Top"/>
+            <ListBox Name="ListParameter"  
+                     ItemsSource="{Binding RevitParameters}"  
+                     DisplayMemberPath="Name" 
+                     HorizontalAlignment="Left" 
+                     Width="231" 
+                     Margin="25,150,0,0" 
+                     Height="97" 
+                     VerticalAlignment="Top" 
+                     SelectionChanged="ListParameter_SelectionChanged_1">
             </ListBox>
 
 
             <!--3 Select Parameter Value-->
-            <TextBox Style="{DynamicResource MainTextBoxSearch}" Tag="3. Fill Parameter Value" Name="txtFilter" Margin="25,266,0,0" TextWrapping="Wrap" Text="" Height="29" VerticalAlignment="Top" HorizontalAlignment="Left" Width="231" />
+            <TextBox Style="{DynamicResource MainTextBoxSearch}" 
+                     Tag="3. Fill Parameter Value" 
+                     Name="txtFilter" 
+                     Margin="25,266,0,0" 
+                     TextWrapping="Wrap" 
+                     Text="" 
+                     Height="29" 
+                     VerticalAlignment="Top" 
+                     HorizontalAlignment="Left" 
+                     Width="231" />
 
-            <Button Background="Transparent" BorderBrush="Transparent" Name="FilterButton"  Click="FilterButton_Click" Margin="231,266,0,296" RenderTransformOrigin="-2.737,-1.017" HorizontalAlignment="Left" Width="25" >
+            <Button Background="Transparent" 
+                    BorderBrush="Transparent" 
+                    Name="FilterButton"  
+                    Click="FilterButton_Click" 
+                    Margin="231,266,0,296" 
+                    RenderTransformOrigin="-2.737,-1.017" 
+                    HorizontalAlignment="Left" 
+                    Width="25" >
                 <ContentControl>
-                    <Image Width="18" Height="21" Source="/EngFinder;component/Resources/Search.png" Cursor="Hand" RenderTransformOrigin="0.5,0.571" />
+                    <Image Width="18" 
+                           Height="21" 
+                           Source="/EngFinder;component/Resources/Search.png" 
+                           Cursor="Hand" 
+                           RenderTransformOrigin="0.5,0.571" />
                 </ContentControl>
             </Button>
 
-            <ListView Name="ElementListView" SelectionChanged="ElementListView_SelectionChanged" Margin="25,295,0,0" Height="218" VerticalAlignment="Top" HorizontalAlignment="Left" Width="231">
+            <ListView Name="ElementListView" 
+                      SelectionChanged="ElementListView_SelectionChanged" 
+                      Margin="25,295,0,0" 
+                      Height="218" 
+                      VerticalAlignment="Top" 
+                      HorizontalAlignment="Left" 
+                      Width="231">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn>
@@ -90,7 +209,14 @@
                 </ListView.View>
             </ListView>
 
-            <TextBlock x:Name="Placeholder" IsHitTestVisible="False" TextWrapping="Wrap" Text="Placeholder Text" VerticalAlignment="Top" Margin="-233,20,299,0" Foreground="DarkGray" HorizontalAlignment="Right" Width="214">
+            <TextBlock x:Name="Placeholder" 
+                       IsHitTestVisible="False" 
+                       TextWrapping="Wrap" 
+                       Text="Placeholder Text" 
+                       VerticalAlignment="Top" 
+                       Margin="-233,20,299,0" 
+                       Foreground="DarkGray" 
+                       HorizontalAlignment="Right" Width="214">
                 <TextBlock.Style>
                     <Style TargetType="{x:Type TextBlock}">
                         <Setter Property="Visibility" Value="Collapsed"/>
@@ -103,14 +229,41 @@
                 </TextBlock.Style>
             </TextBlock>
 
-            <TextBlock x:Name="TextBlockError" HorizontalAlignment="Left" Margin="80,390,0,0" TextWrapping="Wrap" Text="No Elements Found" Width="127" FontFamily="Roboto light" FontSize="14" Focusable="False" AllowDrop="False" Foreground="LightGray"  Height="18" VerticalAlignment="Top" Visibility="Visible"/>
+            <TextBlock x:Name="TextBlockError" 
+                       HorizontalAlignment="Left" 
+                       Margin="80,390,0,0" 
+                       TextWrapping="Wrap" 
+                       Text="No Elements Found" 
+                       Width="127" 
+                       FontFamily="Roboto light" 
+                       FontSize="14" 
+                       Focusable="False" 
+                       AllowDrop="False" 
+                       Foreground="LightGray"  
+                       Height="18" 
+                       VerticalAlignment="Top" 
+                       Visibility="Visible"/>
 
 
             <!--4 Isolate or select elements-->
-            <Button Style="{DynamicResource MainButtonStyle}" Content="HIGHLIGHT" HorizontalAlignment="Left" Margin="25,534,0,0" VerticalAlignment="Top" Width="105" Height="26"   Click="HighlightElements_click" Background="#088FD0"/>
-            <Button Style="{DynamicResource MainButtonStyle}" Content="ISOLATE" HorizontalAlignment="Left" Margin="155,534,0,0" VerticalAlignment="Top" Width="99" Height="26" Click="IsolateElements_click" Background="#088FD0"/>
-
-
+            <Button Style="{DynamicResource MainButtonStyle}" 
+                    Content="HIGHLIGHT" 
+                    HorizontalAlignment="Left" 
+                    Margin="25,534,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="105" 
+                    Height="26"   
+                    Click="HighlightElements_click" 
+                    Background="#088FD0"/>
+            <Button Style="{DynamicResource MainButtonStyle}" 
+                    Content="ISOLATE" 
+                    HorizontalAlignment="Left" 
+                    Margin="155,534,0,0" 
+                    VerticalAlignment="Top" 
+                    Width="99" 
+                    Height="26" 
+                    Click="IsolateElements_click" 
+                    Background="#088FD0"/>
         </Grid>
     </Border>
 

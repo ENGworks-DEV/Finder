@@ -253,8 +253,7 @@
                     VerticalAlignment="Top" 
                     Width="105" 
                     Height="26"   
-                    Click="HighlightElements_click" 
-                    Background="#088FD0"/>
+                    Click="HighlightElements_click"/>
             <Button Style="{DynamicResource MainButtonStyle}" 
                     Content="ISOLATE" 
                     HorizontalAlignment="Left" 
@@ -262,8 +261,7 @@
                     VerticalAlignment="Top" 
                     Width="99" 
                     Height="26" 
-                    Click="IsolateElements_click" 
-                    Background="#088FD0"/>
+                    Click="IsolateElements_click" />
         </Grid>
     </Border>
 

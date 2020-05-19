@@ -24,7 +24,7 @@ Finder is an open-source project. You can make suggestions or track and submit b
 
 ## License ##
 
-[The MIT License (MIT)](https://github.com/ENGworks-DEV/RenumberParts/blob/master/LICENSE)
+[The MIT License (MIT)](https://github.com/ENGworks-DEV/Finder/blob/master/LICENSE)
 
 Copyright (c) 2020 Engworks
 

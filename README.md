@@ -9,6 +9,7 @@ This is a Revit add-in that finds elements with specific parameters value
 * Revit 2020
 * Revit 2019
 * Revit 2018
+* Revit 2017
 
 ## Dependencies
 
